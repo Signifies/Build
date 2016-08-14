@@ -1,0 +1,10 @@
+name: Build
+main: me.ES96.com.Build
+version: 0.0.1
+description: Plugin that manages all build administrative features.
+website: https://github.com/ES359
+author: ES96
+
+commands:
+  build:
+    description: Main command for this plugin.
