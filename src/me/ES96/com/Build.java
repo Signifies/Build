@@ -1,6 +1,7 @@
 package me.ES96.com;
 
 import Commands.BuildCommand;
+import Commands.BwarpCommand;
 import Events.BuildEvents;
 import Utilities.BuildConfig;
 import Utilities.BuildPermissions;
@@ -59,6 +60,7 @@ public class Build extends JavaPlugin
     {
         Debug.log(Debug.pluginLog() + "&2Loading commands...");
         registerCmd("build", new BuildCommand(this));
+        registerCmd("warp",new BwarpCommand(this));
     }
 
     private void registerCmd(String command, CommandExecutor commandExecutor) {
