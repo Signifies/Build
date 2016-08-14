@@ -8,3 +8,12 @@ author: ES96
 commands:
   build:
     description: Main command for this plugin.
+    aliases: [set, bd, bld]
+  warp:
+    description: Warp command.
+  setwarp:
+    description: Sets a warps.
+    aliases: [swarp, sw]
+  deletewarp:
+    description: Deletes a warps.
+    aliases: [delwarp, dw]

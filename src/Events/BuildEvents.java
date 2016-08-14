@@ -113,18 +113,6 @@ public class BuildEvents extends BuildUtils implements Listener
                 if(BuildPermissions.BUILD_CHAT.checkPermission(p))
                 {
                     event.setCancelled(false);
-                    String location =  color("&7X:&a"+p.getLocation().getBlockX() +" &7Y&a:" +p.getLocation().getBlockY() + " &7Z&a:" + p.getLocation().getBlockZ() +"&r" );
-                    String format = main.getBConfig().getBuildConfig().getString("Chat.custom-chat.Format");
-                    format = format.replace("%name%", p.getName());
-                    format = format.replace("%msg%", event.getMessage());
-                    format = format.replace("%world%", p.getWorld().getName());
-                    format = format.replace("%UUID%", p.getUniqueId().toString());
-                    format = format.replace("%location%",location);
-//                format = format.replaceAll("%IP%", "" + player.getAddress());
-
-                    //TODO: Add vault to get prefix from PermissionsEX...
-
-                    event.setFormat(color(format));
                 }else
                 {
                     event.setCancelled(true);
@@ -132,6 +120,20 @@ public class BuildEvents extends BuildUtils implements Listener
                 }
             }
         }
+
+        String location =  color("&7X:&a"+p.getLocation().getBlockX() +" &7Y&a:" +p.getLocation().getBlockY() + " &7Z&a:" + p.getLocation().getBlockZ() +"&r" );
+        String format = main.getBConfig().getBuildConfig().getString("Chat.custom-chat.Format");
+        format = format.replace("%name%", p.getName());
+        format = format.replace("%msg%", event.getMessage());
+        format = format.replace("%world%", p.getWorld().getName());
+        format = format.replace("%UUID%", p.getUniqueId().toString());
+        format = format.replace("%location%",location);
+//                format = format.replaceAll("%IP%", "" + player.getAddress());
+
+        //TODO: Add vault to get prefix from PermissionsEX...
+
+        event.setFormat(color(format));
+
     }
 
     @EventHandler

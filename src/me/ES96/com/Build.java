@@ -1,5 +1,7 @@
 package me.ES96.com;
 
+import Commands.BdeleteWarpCommand;
+import Commands.BsetwarpCommand;
 import Commands.BuildCommand;
 import Commands.BwarpCommand;
 import Events.BuildEvents;
@@ -27,7 +29,7 @@ public class Build extends JavaPlugin
     {
         conf = new BuildConfig(this);
         configuration();
-//        loadWarps(); TODO
+        loadWarps(); //TODO
         loadEvents();
         commands();
 
@@ -61,6 +63,9 @@ public class Build extends JavaPlugin
         Debug.log(Debug.pluginLog() + "&2Loading commands...");
         registerCmd("build", new BuildCommand(this));
         registerCmd("warp",new BwarpCommand(this));
+        registerCmd("setwarp", new BsetwarpCommand(this));
+        registerCmd("deletewarp", new BdeleteWarpCommand(this));
+//        registerCmd("");
     }
 
     private void registerCmd(String command, CommandExecutor commandExecutor) {

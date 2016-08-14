@@ -39,17 +39,17 @@ public class BwarpCommand extends BuildUtils implements CommandExecutor
         {
             if(!BuildPermissions.BUILD_COMMAND_WARP.checkPermission(p))
             {
-                p.sendMessage(color("%prefix% &2Error you don't have permissions for this."));
+                p.sendMessage(color("&2Error you don't have permissions for this."));
             }else
             {
                 if (args.length == 0)
                 {
-                    p.sendMessage(color("%prefix% &7Where do you need to warp to?"));
+                    p.sendMessage(color("&7Where do you need to warp to?"));
                 }else
                 {
                     if(main.getWarps().getWarpConfig().getConfigurationSection("warps." + args[0]) == null)
                     {
-                        p.sendMessage(color("%prefix% &2Error &7- The warp, &e" + args[0] + " &7doesn't exist. "));
+                        p.sendMessage(color("&2Error &7- The warp, &e" + args[0] + " &7doesn't exist. "));
                     }else
                     {
                         World w = Bukkit.getServer().getWorld(main.getWarps().getWarpConfig().getString("warps." + args[0] + ".world"));
@@ -57,7 +57,7 @@ public class BwarpCommand extends BuildUtils implements CommandExecutor
                         double y = main.getWarps().getWarpConfig().getDouble("warps." + args[0] + ".y");
                         double z = main.getWarps().getWarpConfig().getDouble("warps." + args[0] + ".z");
                         p.teleport(new Location(w, x, y, z));
-                        p.sendMessage(color("%prefix% &7Warping to &6" + args[0] + "&7..."));
+                        p.sendMessage(color("&7Warping to &6" + args[0] + "&7..."));
                     }
                 }
             }
