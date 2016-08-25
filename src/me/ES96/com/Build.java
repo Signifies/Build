@@ -1,19 +1,19 @@
 package me.ES96.com;
 
-import Commands.BdeleteWarpCommand;
-import Commands.BsetwarpCommand;
-import Commands.BuildCommand;
-import Commands.BwarpCommand;
+import Commands.*;
 import Events.BuildEvents;
-import Utilities.BuildConfig;
-import Utilities.BuildPermissions;
-import Utilities.Debug;
-import Utilities.Warps;
+import Events.BuildMode;
+import Events.Menu;
+import Utilities.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by ES359 on 8/13/16.
@@ -25,14 +25,21 @@ public class Build extends JavaPlugin
     private Warps warp = new Warps(this);
     private BuildConfig conf = new BuildConfig(this);
     public PluginDescriptionFile pdfFile = this.getDescription();
+    private ArrayList<UUID> toggle = new ArrayList<>();
+    private ArrayList<UUID> buildMode = new ArrayList<>();
+    public Menu menu;
+    BuildMode mode;
+
     public void onEnable()
     {
         conf = new BuildConfig(this);
+        mode = new BuildMode(this);
+
         configuration();
         loadWarps(); //TODO
         loadEvents();
         commands();
-
+        menu = new Menu(this);
     }
 
     void configuration()
@@ -61,12 +68,20 @@ public class Build extends JavaPlugin
     void commands()
     {
         Debug.log(Debug.pluginLog() + "&2Loading commands...");
-        registerCmd("build", new BuildCommand(this));
+        registerCmd("build", new BuildCommand(this,mode));
         registerCmd("warp",new BwarpCommand(this));
         registerCmd("setwarp", new BsetwarpCommand(this));
         registerCmd("deletewarp", new BdeleteWarpCommand(this));
-//        registerCmd("");
+        registerCmd("setspawn", new BsetspawnCommand(this));
+        registerCmd("spawn", new BspawnCommand(this));
+        registerCmd("tp", new BtpCommand(this));
+        registerCmd("tptoggle",new BtpToggleCommand(this));
+        registerCmd("tphere", new BtphereCommand(this));
+        registerCmd("chat", new BchatCommand(this));
+        registerCmd("kick", new BkickCommand(this));
+        registerCmd("help",new BhelpCommand(this));
     }
+
 
     private void registerCmd(String command, CommandExecutor commandExecutor) {
         Bukkit.getServer().getPluginCommand(command).setExecutor(commandExecutor);
@@ -82,5 +97,24 @@ public class Build extends JavaPlugin
         return conf;
     }
 
+    public ArrayList<UUID> getToggle()
+    {
+        return toggle;
+    }
+    public ArrayList<UUID> getBuildMode()
+    {
+        return buildMode;
+    }
+
+    public BuildMode gettMode()
+    {
+        return mode;
+    }
+
+    BuildUtils u = new BuildUtils();
+    public String getNoPermission()
+    {
+        return u.color(conf.getBuildConfig().getString("no-permission"));
+    }
 
 }

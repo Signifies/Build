@@ -4,6 +4,8 @@
 # # # # # # # # # # # # # # # #
 no-permission: "%prefix% &2You don't have permission for this. &eMessage an Administrator about permission."
 #
+kick-format: "&f%player% &chas been kicked. &cReason: &f%msg%"
+#
 Chat:
   Enabled: true
   msg: "&7Chat has been set to &a%value%&7."
@@ -45,3 +47,13 @@ Build:
 Whitelist:
   kick-message: "&9Whitelist&8> &c&oConnection failed: &8&l--&a&l>\n&6&lUUID: &7(&a%uuid%&7)\n&6&lUsername: &c&n%playername%"
   whitelist-alert: "%prefix% &7The player, &a%playername% is attempting to join the server."
+#
+#
+#
+Help:
+  ENCHANTED_BOOK:
+    name: "Test 1"
+    item-pos: 1
+    lore:
+    - "String one"
+    - "String two"

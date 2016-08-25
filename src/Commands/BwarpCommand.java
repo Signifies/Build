@@ -12,6 +12,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 /**
  * Created by ES359 on 8/13/16.
  */
@@ -39,7 +41,8 @@ public class BwarpCommand extends BuildUtils implements CommandExecutor
         {
             if(!BuildPermissions.BUILD_COMMAND_WARP.checkPermission(p))
             {
-                p.sendMessage(color("&2Error you don't have permissions for this."));
+                p.sendMessage(main.getNoPermission());
+//                p.sendMessage(color("&2Error you don't have permissions for this."));
             }else
             {
                 if (args.length == 0)
@@ -47,17 +50,32 @@ public class BwarpCommand extends BuildUtils implements CommandExecutor
                     p.sendMessage(color("&7Where do you need to warp to?"));
                 }else
                 {
-                    if(main.getWarps().getWarpConfig().getConfigurationSection("warps." + args[0]) == null)
+                    if(args[0].equalsIgnoreCase("list"))
                     {
-                        p.sendMessage(color("&2Error &7- The warp, &e" + args[0] + " &7doesn't exist. "));
+                        if(BuildPermissions.BUILD_COMMAND_WARP_LIST.checkPermission(p))
+                        {
+                            List<String> list = main.getWarps().getWarpConfig().getStringList("Warp-list");
+                            sendText(warps(list),p);
+//                        p.sendMessage(color("&aTesting to see if this is working.."));
+//                        warpList(main,p);
+                        }else
+                        {
+                            p.sendMessage(color("&2Error - &7You don't have permission to list warps."));
+                        }
                     }else
                     {
-                        World w = Bukkit.getServer().getWorld(main.getWarps().getWarpConfig().getString("warps." + args[0] + ".world"));
-                        double x = main.getWarps().getWarpConfig().getDouble("warps." + args[0] + ".x");
-                        double y = main.getWarps().getWarpConfig().getDouble("warps." + args[0] + ".y");
-                        double z = main.getWarps().getWarpConfig().getDouble("warps." + args[0] + ".z");
-                        p.teleport(new Location(w, x, y, z));
-                        p.sendMessage(color("&7Warping to &6" + args[0] + "&7..."));
+                        if(main.getWarps().getWarpConfig().getConfigurationSection("warps." + args[0]) == null)
+                        {
+                            p.sendMessage(color("&2Error &7- The warp, &e" + args[0] + " &7doesn't exist. "));
+                        }else
+                        {
+                            World w = Bukkit.getServer().getWorld(main.getWarps().getWarpConfig().getString("warps." + args[0] + ".world"));
+                            double x = main.getWarps().getWarpConfig().getDouble("warps." + args[0] + ".x");
+                            double y = main.getWarps().getWarpConfig().getDouble("warps." + args[0] + ".y");
+                            double z = main.getWarps().getWarpConfig().getDouble("warps." + args[0] + ".z");
+                            p.teleport(new Location(w, x, y, z));
+                            p.sendMessage(color("&7Warping to &6" + args[0] + "&7..."));
+                        }
                     }
                 }
             }

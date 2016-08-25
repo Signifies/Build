@@ -17,3 +17,83 @@ commands:
   deletewarp:
     description: Deletes a warps.
     aliases: [delwarp, dw]
+  spawn:
+    description: Teleports to spawn.
+  setspawn:
+    description: Sets the spawn for that world.
+    aliases: [bsp,sspawn]
+  tp:
+    description: Teleports to a player
+    aliases: [teleport]
+  tptoggle:
+    description:
+    aliases: [tpt,toggle]
+  tphere:
+    description: Main command for tphere.
+    aliases: [call]
+  chat:
+    description: Chat command.
+    aliases: [talk,c,shutup]
+  kick:
+    description: Main command for kicking.
+  help:
+    description: Test command.
+
+permissions:
+  Build.*:
+    description: Gives access completely to Build plugin.
+    children:
+      Build.set.*: true
+      Build.command.*: true
+      Build.bypass.*: true
+
+  Build.set.*:
+    description: Access to set flag.
+    children:
+      Build.set.build: true
+      Build.set.break: true
+      Build.set.place: true
+      Build.set.interact: true
+      Build.set.drop: true
+      Build.set.pickup: true
+      Build.warp.set: true
+      Build.set.chat: true
+      Build.set.tnt: true
+  Build.command.*:
+    description: Access to Build commands.
+    children:
+      Build.set: true
+      Build.tp: true
+      Build.tphere: true
+      Build.tptoggle: true
+      Build.warp: true
+      Build.warp.list: true
+      Build.warp.delete: true
+      Build.world.kick: true
+      Build.setspawn: true
+      Build.delspawn: true
+      Build.spawn: true
+      Build.whitelist.notify: true
+      Build.staffchat: true
+      Build.heal: true
+      Build.help: true
+      Build.chat: true
+      Build.chat.clearself: true
+      Build.chat.clear: true
+      Build.reload: true
+  Build.bypass.*:
+    description: Access to bypass permissions.
+    children:
+      Build.bypass.chat: true
+      Build.bypass.place: true
+      Build.bypass.break: true
+      Build.bypass.interact: true
+      Build.bypass.drop: true
+      Build.bypass.pickup: true
+      Build.bypass.toggle: true
+  Build.spawn:
+    description: Main command to return to spawn.
+    default: true
+  Build.help:
+    description: Main command for help
+    default: true

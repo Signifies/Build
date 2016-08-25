@@ -42,6 +42,19 @@ public class BuildEvents extends BuildUtils implements Listener
     }
     */
 
+
+//    @EventHandler
+    public void weather(WeatherChangeEvent event)
+    {
+//        World w = Bukkit.getWorld("Build");
+        World world = event.getWorld();
+
+        event.setCancelled(true);
+        world.setStorm(false);
+        world.setThundering(false);
+        world.setGameRuleValue("doFireTick","false");
+    }
+
     @EventHandler
     public void onPlace(BlockPlaceEvent event)
     {
@@ -50,7 +63,7 @@ public class BuildEvents extends BuildUtils implements Listener
 
         if(!main.getBConfig().getBuildConfig().getBoolean("Block-place.Enabled"))
         {
-            if(BuildPermissions.BUILD_BYPASS_PLACE.checkPermission(p))
+            if(BuildPermissions.BUILD_BYPASS_PLACE.checkPermission(p) || !(main.gettMode().isInBuildMode(p.getUniqueId())))
             {
                 event.setCancelled(false);
             }else
@@ -74,7 +87,7 @@ public class BuildEvents extends BuildUtils implements Listener
 
         if(!main.getBConfig().getBuildConfig().getBoolean("Block-break.Enabled"))
         {
-            if(BuildPermissions.BUILD_BYPASS_BREAK.checkPermission(p))
+            if(BuildPermissions.BUILD_BYPASS_BREAK.checkPermission(p)|| !(main.gettMode().isInBuildMode(p.getUniqueId())))
             {
                 event.setCancelled(false);
             }else
@@ -98,7 +111,7 @@ public class BuildEvents extends BuildUtils implements Listener
 
         if(!main.getBConfig().getBuildConfig().getBoolean("Chat.Enabled"))
         {
-            if(BuildPermissions.BUILD_BYPASS_CHAT.checkPermission(p))
+            if(BuildPermissions.BUILD_BYPASS_CHAT.checkPermission(p)|| !(main.gettMode().isInBuildMode(p.getUniqueId())))
             {
                 event.setCancelled(false);
             }else
@@ -144,7 +157,7 @@ public class BuildEvents extends BuildUtils implements Listener
 
         if(!main.getBConfig().getBuildConfig().getBoolean("Interact.Enabled"))
         {
-            if(BuildPermissions.BUILD_BYPASS_INTERACT.checkPermission(p))
+            if(BuildPermissions.BUILD_BYPASS_INTERACT.checkPermission(p)|| !(main.gettMode().isInBuildMode(p.getUniqueId())))
             {
                 event.setCancelled(false);
             }else

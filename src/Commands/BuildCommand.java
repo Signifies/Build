@@ -1,5 +1,6 @@
 package Commands;
 
+import Events.BuildMode;
 import Utilities.BuildPermissions;
 import Utilities.BuildUtils;
 import me.ES96.com.Build;
@@ -8,6 +9,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
 
 /**
  * Created by ES359 on 8/13/16.
@@ -16,10 +20,11 @@ public class BuildCommand extends BuildUtils implements CommandExecutor
 {
 
     private Build main;
-
-    public BuildCommand(Build instance)
+    BuildMode build;
+    public BuildCommand(Build instance, BuildMode val)
     {
         main = instance;
+        build = val;
     }
 
 
@@ -56,6 +61,12 @@ public class BuildCommand extends BuildUtils implements CommandExecutor
                         case "version":
                         case "ver":
                             sender.sendMessage(getPluginVersion(main, sender));
+                            break;
+
+                        case "warps":
+//                            warpList(main,sender);
+                            List<String> list = main.getWarps().getWarpConfig().getStringList("Warp-list");
+                            sendText(warps(list),sender);
                             break;
 
                         case "about":
@@ -214,6 +225,17 @@ public class BuildCommand extends BuildUtils implements CommandExecutor
                             }else
                             {
                                 sender.sendMessage(msg("&7You don't have permissions for status"));
+                            }
+                            break;
+
+                        case "mode":
+                            if(!(sender instanceof Player))
+                            {
+                                sender.sendMessage(color("%prefix% &cYou cannot use build mode console."));
+                            }else
+                            {
+                                Player builder = (Player)sender;
+                                build.setMode(builder);
                             }
                             break;
 

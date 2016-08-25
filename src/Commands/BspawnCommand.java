@@ -3,7 +3,10 @@ package Commands;
 import Utilities.BuildPermissions;
 import Utilities.BuildUtils;
 import me.ES96.com.Build;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,32 +22,40 @@ public class BspawnCommand extends BuildUtils implements CommandExecutor
     {
         main = instance;
     }
+
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String args[])
     {
 
         if(!(sender instanceof Player))
         {
-            sender.sendMessage(color("%prefix% &2Error the console can't use."));
+            sender.sendMessage(color("%prefix% &cConsole cannot go to spawn!"));
             return true;
         }
 
-        Player p=(Player)sender;
+        Player p =(Player)sender;
 
-        if (cmd.getName().equalsIgnoreCase("setspawn")) {
-            if(!BuildPermissions.BUILD_COMMAND_SETSPAWN.checkPermission(p))
-            {
-                p.sendMessage(color("&2Error - you do not have permission for this."));
-            }else
-            {
-                main.getWarps().getWarpConfig().set("spawn.world", p.getLocation().getWorld().getName());
-                main.getWarps().getWarpConfig().set("spawn.x", p.getLocation().getX());
-                main.getWarps().getWarpConfig().set("spawn.y", p.getLocation().getY());
-                main.getWarps().getWarpConfig().set("spawn.z", p.getLocation().getZ());
-                main.getWarps().saveWarpConfig();
-                p.sendMessage(color("&7Spawn has been &aset."));
-                return true;
-            }
+
+        if (cmd.getName().equalsIgnoreCase("spawn")) {
+           if(!BuildPermissions.BUILD_COMMAND_SPAWN.checkPermission(p))
+           {
+               p.sendMessage(main.getNoPermission());
+           }else
+           {
+               if (main.getWarps().getWarpConfig().getConfigurationSection("spawn") == null) {
+                   p.sendMessage(color("&7Error, the spawn hasn't been &cset&7!"));
+                   return true;
+               }
+               World w = Bukkit.getServer().getWorld(main.getWarps().getWarpConfig().getString("spawn.world"));
+               double x = main.getWarps().getWarpConfig().getDouble("spawn.x");
+               double y = main.getWarps().getWarpConfig().getDouble("spawn.y");
+               double z = main.getWarps().getWarpConfig().getDouble("spawn.z");
+               p.teleport(new Location(w, x, y, z));
+               p.sendMessage(color("&7Welcome to &aSpawn."));
+               return true;
+           }
         }
+
         return true;
     }
+
 }

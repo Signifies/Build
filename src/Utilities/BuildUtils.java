@@ -3,11 +3,15 @@ package Utilities;
 import me.ES96.com.Build;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -151,6 +155,7 @@ public class BuildUtils
         value.add("&a/build &7perms");
         value.add("&a/build &7about");
         value.add("&a/build &7reload");
+        value.add("&a/build &7warps");
         value.add("");
         value.add("&a/build &7chat [true || false]");
         value.add("&a/build &7<itemdrops> [true || false]");
@@ -159,12 +164,47 @@ public class BuildUtils
     }
 
     public void sendText(ArrayList<String> text, CommandSender sender)
+{
+    for(String txt: text)
+    {
+        txt = txt.replace("%player%",sender.getName());
+        sender.sendMessage(color(txt));
+    }
+}
+    public void sendText(ArrayList<String> text, Player sender)
     {
         for(String txt: text)
         {
             txt = txt.replace("%player%",sender.getName());
             sender.sendMessage(color(txt));
         }
+    }
+
+    public void sendText(List<String> text, Player sender)
+    {
+        for(String txt: text)
+        {
+            txt = txt.replace("%player%",sender.getName());
+            sender.sendMessage(color(txt));
+        }
+    }
+
+    public void sendText(List<String> text, CommandSender sender)
+    {
+        for(String txt: text)
+        {
+            txt = txt.replace("%player%",sender.getName());
+            sender.sendMessage(color(txt));
+        }
+    }
+
+    public ArrayList<String> warps(List<String> s)
+    {
+        ArrayList<String> value = new ArrayList<>();
+        value.add("     &f----- &bWarps &f-----");
+        value.add("&6"+s);
+        value.add("&7------------------");
+        return value;
     }
 
     public String getPluginVersion(Build main, CommandSender sender)
@@ -181,4 +221,67 @@ public class BuildUtils
     {
         Bukkit.getServer().getConsoleSender().sendMessage(color("&c&l[LOG]&f " + msg));
     }
+
+    public void warpList(Build main, CommandSender p)
+    {
+        List<String> stringList = main.getWarps().getWarpConfig().getStringList("warps");
+        stringList.forEach(p::sendMessage);
+    }
+    public void deleteWarp(Build main, String warp_name)
+    {
+        Debug.log(Debug.pluginLog() + "&cCalling deleting warp method...");
+        if(main.getWarps().getWarpConfig().getStringList("Warp-list").contains(warp_name))
+        {
+            main.getWarps().getWarpConfig().getStringList("Warp-list").remove(warp_name);
+            main.getWarps().saveWarpConfig();
+            Debug.log(Debug.pluginLog() + "&cDeleted the warp, " + warp_name);
+        }
+    }
+
+    public void clearPlayer(Player p)
+    {
+        for(int i=0; i < 100; i++)
+        {
+            p.sendMessage("");
+        }
+        p.sendMessage(color("&7Your chat has been &7&nCleared&c, by an Admin, &a&n" + p.getName()));
+    }
+
+    public void selfClear(CommandSender sender) {
+        for(int i=0; i <100; i++) {
+            sender.sendMessage("");
+        }
+        sender.sendMessage( ChatColor.GRAY + "You have cleared your own chat, "+ ChatColor.GREEN +sender.getName());
+    }
+
+    public void clear() {
+        for(Player p :Bukkit.getServer().getOnlinePlayers())
+        {
+            for(int i=0; i <100; i ++)
+            {
+                p.sendMessage("");
+            }
+        }
+        Bukkit.broadcastMessage(color("&7&lThe chat has been &a&lcleared&7&l."));
+    }
+
+    public ItemStack createItem(Material mat, int amount, String name) {
+
+        ItemStack is = new ItemStack(mat,amount);
+        ItemMeta meta = is.getItemMeta();
+        meta.setDisplayName(color(name));
+        is.setItemMeta(meta);
+        return is;
+    }
+
+
+
+    public void clearArmor(Player p)
+    {
+        p.getInventory().setHelmet(null);
+        p.getInventory().setChestplate(null);
+        p.getInventory().setLeggings(null);
+        p.getInventory().setBoots(null);
+    }
+
 }
