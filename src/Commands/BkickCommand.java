@@ -59,8 +59,8 @@ public class BkickCommand extends BuildUtils implements CommandExecutor
                             Bukkit.broadcastMessage(color(format));
                         }else
                         {
-                            target.kickPlayer(color("&7You have been kicked from the &cserver."));
                             Bukkit.broadcastMessage(color("&a" + target.getName() +"&7 has been kicked."));
+                            target.kickPlayer(color("&7You have been kicked from the &cserver."));
                         }
                     }
                 }

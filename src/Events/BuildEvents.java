@@ -13,13 +13,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -227,6 +225,44 @@ public class BuildEvents extends BuildUtils implements Listener
     {
         return Bukkit.getServer().hasWhitelist();
     }
+
+
+    @EventHandler
+    public void join(PlayerJoinEvent event)
+    {
+        Player p = event.getPlayer();
+
+        event.setJoinMessage(null);
+
+        String format = main.getBConfig().getBuildConfig().getString("Messages.join");
+
+        format = format.replace("{player}", p.getName());
+        format = format.replace("{display_name}",p.getDisplayName());
+        format = format.replace("{uuid}",p.getUniqueId().toString());
+
+        Bukkit.getServer().broadcastMessage(color(format));
+
+        List<String> motd = main.getBConfig().getBuildConfig().getStringList("Build.MOTD.motd");
+
+        sendText(motd,p);
+    }
+
+    @EventHandler
+    public void quit(PlayerQuitEvent event)
+    {
+        Player p = event.getPlayer();
+
+        event.setQuitMessage(null);
+
+        String format = main.getBConfig().getBuildConfig().getString("Messages.quit");
+
+        format = format.replace("{player}", p.getName());
+        format = format.replace("{display_name}",p.getDisplayName());
+        format = format.replace("{uuid}",p.getUniqueId().toString());
+
+        Bukkit.getServer().broadcastMessage(color(format));
+    }
+
 
 
     @EventHandler

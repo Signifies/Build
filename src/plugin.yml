@@ -1,6 +1,6 @@
 name: Build
 main: me.ES96.com.Build
-version: 0.0.1
+version: 0.1.0
 description: Plugin that manages all build administrative features.
 website: https://github.com/ES359
 author: ES96
@@ -37,8 +37,19 @@ commands:
   kick:
     description: Main command for kicking.
   help:
-    description: Test command.
-
+    description: Main command for this gui.
+  item:
+    description: Main command for spawning items.
+    aliases: [i]
+  clearinventory:
+    description: Clears the players inventory.
+    aliases: [ci,cl,clinv,clinventory,inventoryclear]
+  cmddisable:
+    description: Administration command for CMD-Disable
+    aliases: [cmd, cdisable, cd]
+  whitelist:
+    description: Modified  whitelist command.
+    aliases: [wl]
 permissions:
   Build.*:
     description: Gives access completely to Build plugin.

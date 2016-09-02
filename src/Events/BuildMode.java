@@ -3,6 +3,7 @@ package Events;
 import Utilities.BuildPermissions;
 import Utilities.BuildUtils;
 import me.ES96.com.Build;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.WeatherType;
@@ -35,7 +36,9 @@ public class BuildMode extends BuildUtils
                 build.getBuildMode().add(player.getUniqueId());
 
                 player.setGameMode(GameMode.CREATIVE);
+                setArmor(player);
                 player.setDisplayName("&bBuilder &r"+ player.getName());
+//                player.setPlayerListName("");
                 player.setFlySpeed(0.5f);
                 player.setPlayerWeather(WeatherType.CLEAR);
                 player.resetPlayerTime();
@@ -49,6 +52,7 @@ public class BuildMode extends BuildUtils
                 {
                     player.setGameMode(GameMode.CREATIVE);
                 }
+                clearArmor(player);
                 player.setDisplayName(player.getName());
                 player.setFlySpeed(0.1f);
                 player.setPlayerWeather(WeatherType.CLEAR);

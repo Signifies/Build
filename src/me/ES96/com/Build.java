@@ -3,6 +3,7 @@ package me.ES96.com;
 import Commands.*;
 import Events.BuildEvents;
 import Events.BuildMode;
+import Events.CommandRestrict;
 import Events.Menu;
 import Utilities.*;
 import org.bukkit.Bukkit;
@@ -21,12 +22,13 @@ import java.util.UUID;
 public class Build extends JavaPlugin
 {
 
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
     private Warps warp = new Warps(this);
     private BuildConfig conf = new BuildConfig(this);
     public PluginDescriptionFile pdfFile = this.getDescription();
     private ArrayList<UUID> toggle = new ArrayList<>();
     private ArrayList<UUID> buildMode = new ArrayList<>();
+    private ArrayList<UUID> notify = new ArrayList<>();
     public Menu menu;
     BuildMode mode;
 
@@ -55,6 +57,7 @@ public class Build extends JavaPlugin
         Debug.log(Debug.pluginLog() + "&bLoading Events...");
         PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new BuildEvents(this), this);
+//        pm.registerEvents(new CommandRestrict(this), this);
     }
 
     void loadWarps()
@@ -80,6 +83,10 @@ public class Build extends JavaPlugin
         registerCmd("chat", new BchatCommand(this));
         registerCmd("kick", new BkickCommand(this));
         registerCmd("help",new BhelpCommand(this));
+        registerCmd("item", new BitemCommand(this));
+        registerCmd("clearinventory", new BClearCommand());
+        registerCmd("cmddisable", new CommandRestrict(this));
+        registerCmd("whitelist", new BwhitelistCommand(this));
     }
 
 
@@ -91,12 +98,10 @@ public class Build extends JavaPlugin
     {
         return warp;
     }
-
     public BuildConfig getBConfig()
     {
         return conf;
     }
-
     public ArrayList<UUID> getToggle()
     {
         return toggle;
@@ -105,10 +110,13 @@ public class Build extends JavaPlugin
     {
         return buildMode;
     }
-
     public BuildMode gettMode()
     {
         return mode;
+    }
+    public ArrayList<UUID> getNotifications()
+    {
+        return notify;
     }
 
     BuildUtils u = new BuildUtils();

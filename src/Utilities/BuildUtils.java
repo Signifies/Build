@@ -129,9 +129,10 @@ public class BuildUtils
      */
     public String color(String message) {
         String msg =  message;
-        msg = msg.replace("&", "§");
+//        msg = msg.replace("&", "§");
+//        ChatColor.translateAlternateColorCodes('&',msg);
         msg = msg.replace("%prefix%",getPrefix());
-        return msg;
+        return ChatColor.translateAlternateColorCodes('&',msg);
     }
 
     public String msg(String format)
@@ -185,6 +186,10 @@ public class BuildUtils
         for(String txt: text)
         {
             txt = txt.replace("%player%",sender.getName());
+            txt = txt.replace("%uuid%",sender.getUniqueId().toString());
+            txt = txt.replace("%display_name%",sender.getDisplayName());
+            txt = txt.replace("%IP%", sender.getAddress().toString());
+
             sender.sendMessage(color(txt));
         }
     }
@@ -222,22 +227,6 @@ public class BuildUtils
         Bukkit.getServer().getConsoleSender().sendMessage(color("&c&l[LOG]&f " + msg));
     }
 
-    public void warpList(Build main, CommandSender p)
-    {
-        List<String> stringList = main.getWarps().getWarpConfig().getStringList("warps");
-        stringList.forEach(p::sendMessage);
-    }
-    public void deleteWarp(Build main, String warp_name)
-    {
-        Debug.log(Debug.pluginLog() + "&cCalling deleting warp method...");
-        if(main.getWarps().getWarpConfig().getStringList("Warp-list").contains(warp_name))
-        {
-            main.getWarps().getWarpConfig().getStringList("Warp-list").remove(warp_name);
-            main.getWarps().saveWarpConfig();
-            Debug.log(Debug.pluginLog() + "&cDeleted the warp, " + warp_name);
-        }
-    }
-
     public void clearPlayer(Player p)
     {
         for(int i=0; i < 100; i++)
@@ -266,7 +255,6 @@ public class BuildUtils
     }
 
     public ItemStack createItem(Material mat, int amount, String name) {
-
         ItemStack is = new ItemStack(mat,amount);
         ItemMeta meta = is.getItemMeta();
         meta.setDisplayName(color(name));
@@ -274,6 +262,14 @@ public class BuildUtils
         return is;
     }
 
+
+    public void setArmor(Player p)
+    {
+        p.getInventory().setHelmet(createItem(Material.CHAINMAIL_HELMET,1,"&cHat"));
+        p.getInventory().setChestplate(createItem(Material.CHAINMAIL_CHESTPLATE,1,"&cChestplate"));
+        p.getInventory().setLeggings(createItem(Material.CHAINMAIL_LEGGINGS,1,"&cLeggings"));
+        p.getInventory().setBoots(createItem(Material.CHAINMAIL_BOOTS,1,"&cBoots"));
+    }
 
 
     public void clearArmor(Player p)

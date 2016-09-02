@@ -22,11 +22,11 @@ Item-pickup:
   use-msg: false
   msg: "&7You are not allowed to pick up &7Items."
 Block-place:
-  Enabled: true
+  Enabled: false
   use-msg: true
   msg: "&7Placing blocks has been &cDisabled."
 Block-break:
-  Enabled: true
+  Enabled: false
   use-msg: true
   msg: "&7Distroying blocks is &cDisabled."
 # Should explosions be disabled?
@@ -43,17 +43,123 @@ Interact:
 Build:
   MOTD:
     server-list: "&a&l&k|| &7&nBuild Server&r &a&l&k||"
+    motd:
+    - "&7     ----- &a&lBuild Server &7-----"
+    - "&7> Use /help"
+#
+#
+Messages:
+  join: "&7Join&a> &8{player}"
+  quit: "&7Quit&a> &8{player}"
+
 # # # # # # # # # # # #
 Whitelist:
   kick-message: "&9Whitelist&8> &c&oConnection failed: &8&l--&a&l>\n&6&lUUID: &7(&a%uuid%&7)\n&6&lUsername: &c&n%playername%"
   whitelist-alert: "%prefix% &7The player, &a%playername% is attempting to join the server."
 #
 #
+restriction-msg: "%prefix% &6This has been disabled."
 #
-Help:
-  ENCHANTED_BOOK:
-    name: "Test 1"
-    item-pos: 1
+blocked-cmds:
+  - /deop
+  - /op
+  - /rl
+  - /reload
+  - /stop
+  - /about
+  - /kill
+  - /ban
+  - /mute
+  - /core
+  - /eco
+  - /
+  - /?
+  - //
+  - /we
+  - //we
+  - /wg
+  - /worldguard
+  - /region
+  - /cd
+  - /cmddisable
+  - /cdisable
+  - /ban-ip
+  - /banip
+  - /pl
+  - /plugins
+  - /whois
+  - /seen
+  - /tphere
+  - /chat
+  - /playerlock
+  - /lock
+  - /pardon
+  - /banlist
+  - /tpall
+  - /toggledownfall
+  - /tellraw
+  - /save-on
+  - /save-all
+  - /pex
+  - /promote
+  - /motdlist
+  - /serverlist
+  - /pardon-ip
+  - /unbanip
+  - /pardonip
+  - /weather
+  - /ver
+  - /version
+  - /about
+#
+# Settings for inventory
+# Size: Size of the inventory. Increments of 9 only can be used.
+# Name: Inventory display name. color coded.
+# Functions that can be used are as follows:
+# {gold}, {player}, {uuid}, {display_name}
+Inventory-settings:
+  size: 18
+  name: "&a&l&nBuild Help"
+#
+Items:
+- BOOK
+- DIAMOND
+- ENCHANTED_BOOK
+#
+BOOK:
+  Name: "&bBuild Information"
+  slot: 0
+  set:
     lore:
-    - "String one"
-    - "String two"
+    - "&a---------------------"
+    - "&cBuild information section"
+    - "&6This server is a test/development server,"
+    - "&6used by ES96 for Map downloads and development."
+    - "&a---------------------"
+DIAMOND:
+  Name: "&bServer ranks."
+  slot: 2
+  set:
+    lore:
+    - "---------------------"
+    - "&7> &3Guest"
+    - "&7> &2Member"
+    - "&7> &eBuilder"
+    - "&7> &9Mod"
+    - "&7> &cAdmin"
+    - "&7> &6Dev"
+ENCHANTED_BOOK:
+  Name: "&e&lCommands"
+  slot: 4
+  set:
+    lore:
+    - "&7List of General commands."
+    - "&a&l     ------"
+    - "&7> &a/help"
+    - "&7> &a/warp <warp name>"
+    - "&7> &a/warp list"
+    - "&7> &a/msg"
+    - "&7> &a/tpa"
+    - "&7> &a/spawn"
+    - "&7> &a/gamemode <mode>"
+    - "&a-----------------------"

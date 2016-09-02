@@ -27,6 +27,12 @@ public enum  BuildPermissions
     BUILD_COMMAND_HELP("Build.help"),
     BUILD_TOGGLE("Build.toggle.buildmode"),
 
+    BUILD_COMMAND_CLEAR("Build.ci"),
+
+    COMMAND_BYPASS_TOGGLE("Build.command.bypass.toggle"),
+    BUILD_ITEM_COMMAND("Build.item"),
+
+    COMMAND_BYPASS("Build.bypass.command"),
 
     BUILD_CHAT("Build.chat"),
     BUILD_CHAT_CLEARSELF("Build.chat.clearself"),
