@@ -163,6 +163,15 @@ public class BuildUtils
         value.add("&a/build &7<itempickup> [true || false]");
         return value;
     }
+    public ArrayList<String> usage()
+    {
+        ArrayList<String> value = new ArrayList<>();
+
+        value.add("&7   ----- &bMode Usage &7-----");
+        value.add("&7/mode <&c0,1,2,3 &8- &cs,c,a,spec &8- &csurvival,creative,adventure,spectator, build, builder&7>");
+
+        return value;
+    }
 
     public void sendText(ArrayList<String> text, CommandSender sender)
 {

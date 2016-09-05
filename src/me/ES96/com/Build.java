@@ -30,6 +30,7 @@ public class Build extends JavaPlugin
     private ArrayList<UUID> buildMode = new ArrayList<>();
     private ArrayList<UUID> notify = new ArrayList<>();
     private ArrayList<String> messages = new ArrayList<>();
+    private ArrayList<UUID> spy = new ArrayList<>();
     public Menu menu;
     BuildMode mode;
 
@@ -89,6 +90,7 @@ public class Build extends JavaPlugin
         registerCmd("cmddisable", new CommandRestrict(this));
         registerCmd("message", new BmessageCommand(this));
         registerCmd("whitelist", new BwhitelistCommand(this));
+        registerCmd("mode", new BmodeCommand(this));
     }
 
 
@@ -124,7 +126,7 @@ public class Build extends JavaPlugin
     {
         return messages;
     }
-
+    public ArrayList<UUID> getSpy() {return spy;}
     BuildUtils u = new BuildUtils();
     public String getNoPermission()
     {

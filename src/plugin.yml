@@ -53,6 +53,9 @@ commands:
   message:
     description:
     aliases: [msg,pm,hi,whatsup,sup]
+  mode:
+    description: Command to change players mode on the server.
+
 permissions:
   Build.*:
     description: Gives access completely to Build plugin.

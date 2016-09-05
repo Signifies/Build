@@ -8,6 +8,7 @@ kick-format: "&f%player% &chas been kicked. &cReason: &f%msg%"
 #
 Mode:
   Build: "&7You cannot build. Are you in the right &amode&7?"
+  set-others: "&7You don't have permission to set modes for others."
 #
 messaging:
   format:
@@ -165,5 +166,6 @@ ENCHANTED_BOOK:
     - "&7> &a/msg"
     - "&7> &a/tpa"
     - "&7> &a/spawn"
-    - "&7> &a/gamemode <mode>"
+    - "&7> &a/mode <mode>"
+    - "&7> &a/mode usage"
     - "&a-----------------------"

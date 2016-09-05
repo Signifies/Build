@@ -26,14 +26,21 @@ public enum  BuildPermissions
     BUILD_COMMAND_HEAL("Build.heal"),
     BUILD_COMMAND_HELP("Build.help"),
     BUILD_TOGGLE("Build.toggle.buildmode"),
+    BUILD_TOGGLE_NORMAL("Build.toggle"),
     BUILD_MESSAGE_COMMAND("Build.message"),
     BUILD_COMMAND_CLEAR("Build.ci"),
-
+    BUILD_MODE("Build.mode.set"),
+    BUILD_MODE_OTHERS("Build.mode.set.others"),
+    BUILD_MODE_SURVIVAL("Build.mode.survival"),
+    BUILD_MODE_CREATIVE("Build.mode.creative"),
+    BUILD_MODE_ADVENTURE("Build.mode.adventure"),
+    BUILD_MODE_SPECTATOR("Build.mode.specator"),
+    BUILD_MODE_USERS("Build.users"),
     COMMAND_BYPASS_TOGGLE("Build.command.bypass.toggle"),
     BUILD_ITEM_COMMAND("Build.item"),
 
     COMMAND_BYPASS("Build.bypass.command"),
-
+    BUILD_SPY_COMMAND("Build.socialspy"),
     BUILD_CHAT("Build.chat"),
     BUILD_CHAT_CLEARSELF("Build.chat.clearself"),
     BUILD_CHAT_CLEAR("Build.chat.clear"),
