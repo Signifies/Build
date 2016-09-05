@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -59,23 +60,51 @@ public class BuildEvents extends BuildUtils implements Listener
 
         Player p = event.getPlayer();
 
-        if(!main.getBConfig().getBuildConfig().getBoolean("Block-place.Enabled"))
+        boolean placement = main.getBConfig().getBuildConfig().getBoolean("Block-place.Enabled") ;
+        boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
+
+        if(placement)
         {
-            if(BuildPermissions.BUILD_BYPASS_PLACE.checkPermission(p) || !(main.gettMode().isInBuildMode(p.getUniqueId())))
+            if(mode)
             {
                 event.setCancelled(false);
+//                p.sendMessage(inform);
             }else
             {
                 event.setCancelled(true);
-                if(main.getBConfig().getBuildConfig().getBoolean("Block-place.use-msg"))
-                {
-                    p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Block-place.msg")));
-                }
+                p.sendMessage(main.modeMsg());
             }
-        }else
+        }else if(BuildPermissions.BUILD_BYPASS_PLACE.checkPermission(p))
         {
             event.setCancelled(false);
+        }else
+        {
+            event.setCancelled(true);
+            if(main.getBConfig().getBuildConfig().getBoolean("Block-place.use-msg"))
+            {
+                p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Block-place.msg")));
+            }
         }
+        /**
+         *  if()
+         {
+         if(BuildPermissions.BUILD_BYPASS_PLACE.checkPermission(p) || !(main.gettMode().isInBuildMode(p.getUniqueId())))
+         {
+         event.setCancelled(false);
+         }else
+         {
+         event.setCancelled(true);
+         if(main.getBConfig().getBuildConfig().getBoolean("Block-place.use-msg"))
+         {
+         p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Block-place.msg")));
+         }
+         }
+         }else
+         {
+         event.setCancelled(false);
+         }
+         *
+         */
     }
 
     @EventHandler
@@ -83,23 +112,32 @@ public class BuildEvents extends BuildUtils implements Listener
     {
         Player p = event.getPlayer();
 
-        if(!main.getBConfig().getBuildConfig().getBoolean("Block-break.Enabled"))
+        boolean breaking = main.getBConfig().getBuildConfig().getBoolean("Block-break.Enabled") ;
+        boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
+
+        if(breaking)
         {
-            if(BuildPermissions.BUILD_BYPASS_BREAK.checkPermission(p)|| !(main.gettMode().isInBuildMode(p.getUniqueId())))
+            if(mode)
             {
                 event.setCancelled(false);
+//                p.sendMessage(inform);
             }else
             {
                 event.setCancelled(true);
-                if(main.getBConfig().getBuildConfig().getBoolean("Block-break.use-msg"))
-                {
-                    p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Block-break.msg")));
-                }
+                p.sendMessage(main.modeMsg());
             }
-        }else
+        }else if(BuildPermissions.BUILD_BYPASS_BREAK.checkPermission(p))
         {
             event.setCancelled(false);
+        }else
+        {
+            event.setCancelled(true);
+            if(main.getBConfig().getBuildConfig().getBoolean("Block-break.use-msg"))
+            {
+                p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Block-break.msg")));
+            }
         }
+
     }
 
     @EventHandler
@@ -107,30 +145,32 @@ public class BuildEvents extends BuildUtils implements Listener
     {
         Player p = event.getPlayer();
 
-        if(!main.getBConfig().getBuildConfig().getBoolean("Chat.Enabled"))
+
+        boolean chat = main.getBConfig().getBuildConfig().getBoolean("Chat.Enabled") ;
+        boolean perm = BuildPermissions.BUILD_CHAT.checkPermission(p);
+
+        if(chat)
         {
-            if(BuildPermissions.BUILD_BYPASS_CHAT.checkPermission(p)|| !(main.gettMode().isInBuildMode(p.getUniqueId())))
+            if(perm)
             {
                 event.setCancelled(false);
             }else
             {
                 event.setCancelled(true);
-                p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Chat.chat-disabled")));
+                p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Chat.no-permission")));
             }
+        }else if(BuildPermissions.BUILD_BYPASS_CHAT.checkPermission(p))
+        {
+            event.setCancelled(false);
         }else
         {
-            if(main.getBConfig().getBuildConfig().getBoolean("Chat.custom-chat.Enabled"))
-            {
-                if(BuildPermissions.BUILD_CHAT.checkPermission(p))
-                {
-                    event.setCancelled(false);
-                }else
-                {
-                    event.setCancelled(true);
-                    p.sendMessage(color("&2You don't have permission to speak here. &eMessage an Administrator about permission."));
-                }
-            }
+            event.setCancelled(true);
+            p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Chat.chat-disabled")));
+            return;
         }
+
+
+        if(!main.getBConfig().getBuildConfig().getBoolean("Chat.custom-chat.Enabled")) return;
 
         String location =  color("&7X:&a"+p.getLocation().getBlockX() +" &7Y&a:" +p.getLocation().getBlockY() + " &7Z&a:" + p.getLocation().getBlockZ() +"&r" );
         String format = main.getBConfig().getBuildConfig().getString("Chat.custom-chat.Format");
@@ -153,42 +193,89 @@ public class BuildEvents extends BuildUtils implements Listener
 
         Player p = event.getPlayer();
 
-        if(!main.getBConfig().getBuildConfig().getBoolean("Interact.Enabled"))
+        boolean interact = main.getBConfig().getBuildConfig().getBoolean("Interact.Enabled") ;
+        boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
+
+        if(interact)
         {
-            if(BuildPermissions.BUILD_BYPASS_INTERACT.checkPermission(p)|| !(main.gettMode().isInBuildMode(p.getUniqueId())))
+            if(mode)
             {
                 event.setCancelled(false);
+//                p.sendMessage(inform);
             }else
             {
                 event.setCancelled(true);
-                if(main.getBConfig().getBuildConfig().getBoolean("Interact.use-msg"))
-                {
-                    p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Interact.msg")));
-                }
+                p.sendMessage(main.modeMsg());
             }
-        }else
+        }else if(BuildPermissions.BUILD_BYPASS_INTERACT.checkPermission(p))
         {
             event.setCancelled(false);
+        }else
+        {
+            event.setCancelled(true);
+            if(main.getBConfig().getBuildConfig().getBoolean("Interact.use-msg"))
+            {
+                p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Interact.msg")));
+            }
         }
+
     }
 
     @EventHandler
     public void drop(PlayerDropItemEvent event) {
         Player p = event.getPlayer();
 
-        if (!main.getBConfig().getBuildConfig().getBoolean("Item-drop.Enabled")) {
-            if (BuildPermissions.BUILD_BYPASS_DROP.checkPermission(p)) {
+        boolean drop = main.getBConfig().getBuildConfig().getBoolean("Item-drop.Enabled");
+        boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
+
+        if (drop) {
+            if (mode) {
                 event.setCancelled(false);
+//                p.sendMessage(inform);
             } else {
                 event.setCancelled(true);
-                if (main.getBConfig().getBuildConfig().getBoolean("Item-drop.use-msg")) {
-                    p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Item-drop.msg")));
-                }
+                p.sendMessage(main.modeMsg());
             }
-        } else {
+        } else if (BuildPermissions.BUILD_BYPASS_DROP.checkPermission(p)) {
             event.setCancelled(false);
+        } else {
+            event.setCancelled(true);
+            if (main.getBConfig().getBuildConfig().getBoolean("Item-drop.use-msg")) {
+                p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Item-drop.msg")));
+            }
         }
     }
+
+    @EventHandler
+    public void pickup(PlayerPickupItemEvent event)
+    {
+        Player p = event.getPlayer();
+
+        boolean pickup = main.getBConfig().getBuildConfig().getBoolean("Item-pickup.Enabled");
+        boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
+
+        if (pickup) {
+            if (mode) {
+                event.setCancelled(false);
+//                p.sendMessage(inform);
+            } else {
+                event.setCancelled(true);
+                if(main.getBConfig().getBuildConfig().getBoolean("Item-pickup.use-msg"))
+                {
+                    p.sendMessage(main.modeMsg());
+                }
+            }
+        } else if (BuildPermissions.BUILD_BYPASS_PICKUP.checkPermission(p)) {
+            event.setCancelled(false);
+        } else {
+            event.setCancelled(true);
+            if (main.getBConfig().getBuildConfig().getBoolean("Item-pickup.use-msg")) {
+                p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Item-pickup.msg")));
+            }
+        }
+
+    }
+
 
     @EventHandler
     public void onExplosionPrime(ExplosionPrimeEvent event)

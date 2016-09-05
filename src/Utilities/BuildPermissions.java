@@ -26,7 +26,7 @@ public enum  BuildPermissions
     BUILD_COMMAND_HEAL("Build.heal"),
     BUILD_COMMAND_HELP("Build.help"),
     BUILD_TOGGLE("Build.toggle.buildmode"),
-
+    BUILD_MESSAGE_COMMAND("Build.message"),
     BUILD_COMMAND_CLEAR("Build.ci"),
 
     COMMAND_BYPASS_TOGGLE("Build.command.bypass.toggle"),

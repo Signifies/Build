@@ -2,19 +2,28 @@
 #                             #
 #                             #
 # # # # # # # # # # # # # # # #
-no-permission: "%prefix% &2You don't have permission for this. &eMessage an Administrator about permission."
+no-permission: "%prefix% &cYou don't have permission for this function."
 #
 kick-format: "&f%player% &chas been kicked. &cReason: &f%msg%"
+#
+Mode:
+  Build: "&7You cannot build. Are you in the right &amode&7?"
+#
+messaging:
+  format:
+    from: "&9[&7Msg&9]&r &6From: %sender% &f%msg%"
+    to: "&9[&7Msg&9]&r &6To: %target% &f%msg%"
 #
 Chat:
   Enabled: true
   msg: "&7Chat has been set to &a%value%&7."
   chat-disabled: "&7The chat has been &asilenced."
+  no-permission: "&cYou don't have permission to speak here. &4/msg only."
   custom-chat:
     Enabled: true
     Format: "&0[&8%world%&0] &7%name% &6&l> &7%msg%"
 Item-drop:
-  Enabled: true
+  Enabled: false
   use-msg: true
   msg: "&7Dropping Items has been &cdisabled&7."
 Item-pickup:
@@ -22,11 +31,11 @@ Item-pickup:
   use-msg: false
   msg: "&7You are not allowed to pick up &7Items."
 Block-place:
-  Enabled: false
+  Enabled: true
   use-msg: true
   msg: "&7Placing blocks has been &cDisabled."
 Block-break:
-  Enabled: false
+  Enabled: true
   use-msg: true
   msg: "&7Distroying blocks is &cDisabled."
 # Should explosions be disabled?
@@ -80,17 +89,12 @@ blocked-cmds:
   - /wg
   - /worldguard
   - /region
-  - /cd
-  - /cmddisable
-  - /cdisable
   - /ban-ip
   - /banip
   - /pl
   - /plugins
   - /whois
   - /seen
-  - /tphere
-  - /chat
   - /playerlock
   - /lock
   - /pardon

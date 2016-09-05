@@ -29,6 +29,7 @@ public class Build extends JavaPlugin
     private ArrayList<UUID> toggle = new ArrayList<>();
     private ArrayList<UUID> buildMode = new ArrayList<>();
     private ArrayList<UUID> notify = new ArrayList<>();
+    private ArrayList<String> messages = new ArrayList<>();
     public Menu menu;
     BuildMode mode;
 
@@ -57,7 +58,7 @@ public class Build extends JavaPlugin
         Debug.log(Debug.pluginLog() + "&bLoading Events...");
         PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new BuildEvents(this), this);
-//        pm.registerEvents(new CommandRestrict(this), this);
+        pm.registerEvents(new CommandRestrict(this), this);
     }
 
     void loadWarps()
@@ -86,6 +87,7 @@ public class Build extends JavaPlugin
         registerCmd("item", new BitemCommand(this));
         registerCmd("clearinventory", new BClearCommand());
         registerCmd("cmddisable", new CommandRestrict(this));
+        registerCmd("message", new BmessageCommand(this));
         registerCmd("whitelist", new BwhitelistCommand(this));
     }
 
@@ -118,11 +120,19 @@ public class Build extends JavaPlugin
     {
         return notify;
     }
+    public ArrayList<String> getMessages()
+    {
+        return messages;
+    }
 
     BuildUtils u = new BuildUtils();
     public String getNoPermission()
     {
         return u.color(conf.getBuildConfig().getString("no-permission"));
+    }
+    public String modeMsg()
+    {
+        return u.color(getBConfig().getBuildConfig().getString("Mode.Build"));
     }
 
 }

@@ -50,6 +50,9 @@ commands:
   whitelist:
     description: Modified  whitelist command.
     aliases: [wl]
+  message:
+    description:
+    aliases: [msg,pm,hi,whatsup,sup]
 permissions:
   Build.*:
     description: Gives access completely to Build plugin.
