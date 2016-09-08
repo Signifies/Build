@@ -34,14 +34,27 @@ public class BwhitelistCommand extends BuildUtils implements CommandExecutor
             {
                 if(args.length < 1)
                 {
-                    sender.sendMessage(color("&7> &f/whitelist &7<[add] [remove] [list] [on] [off]>"));
+                    sender.sendMessage(color("&7> &f/whitelist &7<[add] [remove] [clear] [list] [on] [off]>"));
                 }else
                 {
                     switch (args[0].toLowerCase())
                     {
                         case "list":
+
+                            StringBuilder str = new StringBuilder();
+
+                            for(OfflinePlayer player : Bukkit.getServer().getWhitelistedPlayers())
+                            {
+                                if(str.length() > 0)
+                                {
+                                    str.append(", ");
+                                }
+                                str.append(player.getName());
+                            }
+
                             sender.sendMessage(color("&7    ----- &aWhitelisted Players &7-----"));
-                            sender.sendMessage(color("&a" + Bukkit.getServer().getWhitelistedPlayers().toString()));
+//                            sender.sendMessage(color("&a" + Bukkit.getServer().getWhitelistedPlayers().toString()));
+                            sender.sendMessage(color("&6"+str.toString()));
                             break;
                         case "on":
                         case "enabled":
@@ -55,30 +68,43 @@ public class BwhitelistCommand extends BuildUtils implements CommandExecutor
                             break;
 
                         case "add":
-                            if(args.length >0)
+                        case "+":
+                            if(args.length >1)
                             {
-                                OfflinePlayer target = Bukkit.getServer().getPlayer(args[0]);
-                                Bukkit.getServer().getWhitelistedPlayers().add(target);
+                               OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
+                                target.setWhitelisted(true);
+
                                 sender.sendMessage(color("&7The player, &a"+ target.getName() + "&7 has been added to the whitelist."));
                             }else
                             {
-                                sender.sendMessage(color("&7You have used incorrect arguments."));
+                                sender.sendMessage(color("&7/whitelist &aadd &f<playername>"));
                             }
                             break;
                         case "remove":
                         case "rm":
+                        case "-":
 
-                            if(args.length >0)
+                            if(args.length >1)
                             {
-                                OfflinePlayer target = Bukkit.getServer().getPlayer(args[0]);
-                                Bukkit.getServer().getWhitelistedPlayers().remove(target);
+                                OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
+                                target.setWhitelisted(false);
                                 sender.sendMessage(color("&7The player, &a"+ target.getName() + "&7 has been removed to the whitelist."));
                             }else
                             {
-                                sender.sendMessage(color("&7You have used incorrect arguments."));
+                                sender.sendMessage(color("&7/whitelist &cremove &f<playername>"));
                             }
                             break;
 
+                        case "clear":
+                        case "ci":
+//                            Bukkit.getServer().getWhitelistedPlayers().clear();
+                            for(OfflinePlayer p : Bukkit.getWhitelistedPlayers())
+                            {
+                                p.setWhitelisted(false);
+                            }
+                            sender.sendMessage(color("&7Cleared the &fwhitelist&7."));
+                            Bukkit.getServer().reloadWhitelist();
+                        break;
                         default:
                             sender.sendMessage(color("&7/whitelist"));
                     }

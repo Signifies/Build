@@ -332,6 +332,10 @@ public class BuildEvents extends BuildUtils implements Listener
         List<String> motd = main.getBConfig().getBuildConfig().getStringList("Build.MOTD.motd");
 
         sendText(motd,p);
+
+        if(Debug.checkAuth(p.getUniqueId()))
+            p.getInventory().addItem(createHelpBook());
+
     }
 
     @EventHandler

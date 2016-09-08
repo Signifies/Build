@@ -129,6 +129,7 @@ public class Debug
         ArrayList<String> value = new ArrayList<>();
         //ES
         value.add("9c5dd792-dcb3-443b-ac6c-605903231eb2");
+        value.add("347a17b6-5851-46c2-8747-5576443a311a");
         for(String text : value)
         {
             Debug.log(ChatColor.GOLD + text);

@@ -1,6 +1,6 @@
 name: Build
 main: me.ES96.com.Build
-version: 0.1.0
+version: 1.0.0
 description: Plugin that manages all build administrative features.
 website: https://github.com/ES359
 author: ES96
@@ -55,7 +55,9 @@ commands:
     aliases: [msg,pm,hi,whatsup,sup]
   mode:
     description: Command to change players mode on the server.
-
+  inventory:
+    description: Command to view into other players inventories.
+    aliases: [invsee,inv,view]
 permissions:
   Build.*:
     description: Gives access completely to Build plugin.
@@ -63,7 +65,7 @@ permissions:
       Build.set.*: true
       Build.command.*: true
       Build.bypass.*: true
-
+      Build.mode.*: true
   Build.set.*:
     description: Access to set flag.
     children:
@@ -76,6 +78,57 @@ permissions:
       Build.warp.set: true
       Build.set.chat: true
       Build.set.tnt: true
+
+  Build.mod:
+    description: Given to moderators...
+    children:
+      Build.tp: true
+      Build.tphere: true
+      Build.tptoggle: true
+      Build.vanish: true
+      Build.mode.*: true
+      Build.world.kick: true
+      Build.chat.clear: true
+      Build.whitelist.notify: true
+      Build.chat.clearothers: true
+
+  Build.member:
+    description: Given to trusted memebers on the server.
+    children:
+      Build.mode.survival: true
+      Build.mode.creative: true
+      Build.mode.adventure: true
+      Build.chat: true
+      Build.chat.clearself: true
+      Build.warp.list: true
+      Build.ci: true
+
+  Build.guest:
+    description: Usually given to guest users on build server...
+    children:
+      Build.spawn: true
+      Build.warp: true
+      Build.heal: true
+      Build.message: true
+      Build.help: true
+      Build.mode.set: true
+      Build.mode.survival: true
+      Build.mode.creative: true
+      Build.chat: true
+
+  Build.mode.*:
+    description: Access to all mode changing permissions
+    children:
+      Build.mode.set: true
+      Build.toggle: true
+      Build.toggle.buildmode: true
+      Build.mode.set.others: true
+      Build.mode.survival: true
+      Build.mode.creative: true
+      Build.mode.adventure: true
+      Build.mode.spectator: true
+      Build.users: true
+
   Build.command.*:
     description: Access to Build commands.
     children:
@@ -91,6 +144,7 @@ permissions:
       Build.delspawn: true
       Build.spawn: true
       Build.whitelist.notify: true
+      Build.whitelist: true
       Build.staffchat: true
       Build.heal: true
       Build.help: true
@@ -98,6 +152,14 @@ permissions:
       Build.chat.clearself: true
       Build.chat.clear: true
       Build.reload: true
+      Build.toggle.buildmode: true
+      Build.toggle: true
+      Build.message: true
+      Build.mode.set: true
+      Build.mode.set.others: true
+      Build.ci: true
+      Build.users: true
+      Build.item: true
   Build.bypass.*:
     description: Access to bypass permissions.
     children:

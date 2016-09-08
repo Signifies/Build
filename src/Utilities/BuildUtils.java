@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
@@ -188,6 +189,18 @@ public class BuildUtils
             txt = txt.replace("%player%",sender.getName());
             sender.sendMessage(color(txt));
         }
+    }
+
+    public ItemStack createHelpBook()
+    {
+        ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+        BookMeta bm = (BookMeta) book.getItemMeta();
+        bm.setDisplayName(ChatColor.RED + "Instruction Manual");
+        bm.setAuthor(ChatColor.YELLOW + "" + ChatColor.BOLD + "PacCraft");
+        String page = ChatColor.DARK_RED +"PacCraft\n"+ "" +ChatColor.GOLD +"PacMan, In Minecraft\n" + ChatColor.BLACK + "\nPacCraft is a clever combination of Minecraft and Pacman";
+        bm.addPage(page);
+        book.setItemMeta(bm);
+        return book;
     }
 
     public void sendText(List<String> text, Player sender)
