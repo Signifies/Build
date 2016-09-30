@@ -92,6 +92,7 @@ public class Build extends JavaPlugin
         registerCmd("whitelist", new BwhitelistCommand(this));
         registerCmd("mode", new BmodeCommand(this));
         registerCmd("inventory", new BinvseeCommand(this));
+        registerCmd("map",new BMapCommand());
     }
 
 

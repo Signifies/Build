@@ -2,6 +2,7 @@ package Events;
 
 import Utilities.BuildPermissions;
 import Utilities.BuildUtils;
+import Utilities.Data;
 import Utilities.Debug;
 import me.ES96.com.Build;
 import org.bukkit.Bukkit;
@@ -18,6 +19,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +29,7 @@ import java.util.UUID;
 public class BuildEvents extends BuildUtils implements Listener
 {
     Build main;
+    private Data data;
     public BuildEvents(Build instance)
     {
         main = instance;
@@ -320,21 +323,21 @@ public class BuildEvents extends BuildUtils implements Listener
         Player p = event.getPlayer();
 
         event.setJoinMessage(null);
-
         String format = main.getBConfig().getBuildConfig().getString("Messages.join");
-
         format = format.replace("{player}", p.getName());
         format = format.replace("{display_name}",p.getDisplayName());
         format = format.replace("{uuid}",p.getUniqueId().toString());
-
         Bukkit.getServer().broadcastMessage(color(format));
-
         List<String> motd = main.getBConfig().getBuildConfig().getStringList("Build.MOTD.motd");
-
         sendText(motd,p);
 
-        if(Debug.checkAuth(p.getUniqueId()))
-            p.getInventory().addItem(createHelpBook());
+        data = new Data(new File("plugins/Build/PlayerData/" + p.getUniqueId() + ".json"),p);
+        Debug.log(Debug.pluginLog() + "&6Creating file for " + p.getName());
+        log(color("%prefix% &7Creating data for player, &6" + p.getName()));
+
+
+//        if(Debug.checkAuth(p.getUniqueId()))
+//            p.getInventory().addItem(createHelpBook());
 
     }
 
@@ -342,16 +345,18 @@ public class BuildEvents extends BuildUtils implements Listener
     public void quit(PlayerQuitEvent event)
     {
         Player p = event.getPlayer();
-
         event.setQuitMessage(null);
-
         String format = main.getBConfig().getBuildConfig().getString("Messages.quit");
-
         format = format.replace("{player}", p.getName());
         format = format.replace("{display_name}",p.getDisplayName());
         format = format.replace("{uuid}",p.getUniqueId().toString());
-
         Bukkit.getServer().broadcastMessage(color(format));
+
+        data.update(p);
+        Debug.log(Debug.pluginLog() + "&6Updating player data for " + p.getName());
+        log(color("%prefix% &4&lUpdating player data for &6&l" + p.getName()));
+
+
     }
 
 

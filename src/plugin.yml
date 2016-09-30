@@ -55,9 +55,12 @@ commands:
     aliases: [msg,pm,hi,whatsup,sup]
   mode:
     description: Command to change players mode on the server.
+    aliases: [gm]
   inventory:
     description: Command to view into other players inventories.
     aliases: [invsee,inv,view]
+  map:
+    description: Command to view maps...
 permissions:
   Build.*:
     description: Gives access completely to Build plugin.

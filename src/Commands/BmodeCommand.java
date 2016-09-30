@@ -127,6 +127,27 @@ public class BmodeCommand extends BuildUtils implements CommandExecutor
                                 if(!BuildPermissions.BUILD_MODE_SPECTATOR.checkPermission(p))
                                 {
                                     p.sendMessage(color("&7You don't have permission for &6spectator"));
+                                }else
+                                {
+                                    if(args.length > 1)
+                                    {
+                                        if(BuildPermissions.BUILD_MODE_OTHERS.checkPermission(p))
+                                        {
+                                            Player t = Bukkit.getPlayer(args[1]);
+                                            if(t == null) {p.sendMessage(color("&cError - The player, &f" + args[1] + "&c is null!"));return true;}
+                                            t.setGameMode(GameMode.SPECTATOR);
+                                            t.setPlayerListName(color("&7[Spectator] &f" +t.getPlayerListName()));
+                                            p.sendMessage(color("&7You set &f"+t.getName() + "'s &7gamemode to &6" +t.getGameMode().toString().toLowerCase() + "&7."));
+                                        }else
+                                        {
+                                            p.sendMessage(color(instance.getBConfig().getBuildConfig().getString("Mode.set-others")));
+                                        }
+                                    }else
+                                    {
+                                        p.setGameMode(GameMode.SPECTATOR);
+                                        p.setPlayerListName(color("&7[Spectator] &f" +p.getPlayerListName()));
+                                        p.sendMessage(color("&7Your gamemode has been set to, &6" + p.getGameMode().toString().toLowerCase()));
+                                    }
                                 }
                                 break;
 

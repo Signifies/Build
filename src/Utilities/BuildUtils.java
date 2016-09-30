@@ -11,9 +11,7 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by ES359 on 8/13/16.
@@ -191,18 +189,6 @@ public class BuildUtils
         }
     }
 
-    public ItemStack createHelpBook()
-    {
-        ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
-        BookMeta bm = (BookMeta) book.getItemMeta();
-        bm.setDisplayName(ChatColor.RED + "Instruction Manual");
-        bm.setAuthor(ChatColor.YELLOW + "" + ChatColor.BOLD + "PacCraft");
-        String page = ChatColor.DARK_RED +"PacCraft\n"+ "" +ChatColor.GOLD +"PacMan, In Minecraft\n" + ChatColor.BLACK + "\nPacCraft is a clever combination of Minecraft and Pacman";
-        bm.addPage(page);
-        book.setItemMeta(bm);
-        return book;
-    }
-
     public void sendText(List<String> text, Player sender)
     {
         for(String txt: text)
@@ -284,6 +270,12 @@ public class BuildUtils
         return is;
     }
 
+    Calendar cal = Calendar.getInstance();
+    Date now = cal.getTime();
+    public java.sql.Timestamp stamp = new java.sql.Timestamp(now.getTime());
+    public java.sql.Timestamp getStamp() {
+        return stamp;
+    }
 
     public void setArmor(Player p)
     {
