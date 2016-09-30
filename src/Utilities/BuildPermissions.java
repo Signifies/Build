@@ -35,7 +35,7 @@ public enum  BuildPermissions
     BUILD_MODE("Build.mode.set"),
     BUILD_MODE_OTHERS("Build.mode.set.others"),
     BUILD_MODE_SURVIVAL("Build.mode.survival"),
-    BUILD_MODE_CREATIVE("Build.mode.creative"),
+    BUILD_MODE_CREATIVE("Build.mode.survival"),
     BUILD_MODE_ADVENTURE("Build.mode.adventure"),
     BUILD_MODE_SPECTATOR("Build.mode.spectator"),
     BUILD_MODE_USERS("Build.users"),
@@ -50,6 +50,7 @@ public enum  BuildPermissions
     BUILD_CHAT_PERMS("Build.perms"),
     BUILD_CHAT_CLEAR_OTHERS("Build.chat.clearothers"),
     BUILD_RELOAD("Build.reload"),
+
 
     BUILD_SET_BUILD("Build.set.build"),
     BUILD_SET_BREAK("Build.set.break"),

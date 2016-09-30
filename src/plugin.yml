@@ -62,6 +62,7 @@ commands:
   map:
     description: Command to view maps...
 permissions:
+
   Build.*:
     description: Gives access completely to Build plugin.
     children:
@@ -69,6 +70,8 @@ permissions:
       Build.command.*: true
       Build.bypass.*: true
       Build.mode.*: true
+      Build.gamemodes.*: true
+
   Build.set.*:
     description: Access to set flag.
     children:
@@ -81,7 +84,7 @@ permissions:
       Build.warp.set: true
       Build.set.chat: true
       Build.set.tnt: true
-
+      Build.mode.set: true
   Build.mod:
     description: Given to moderators...
     children:
@@ -94,6 +97,7 @@ permissions:
       Build.chat.clear: true
       Build.whitelist.notify: true
       Build.chat.clearothers: true
+
 
   Build.member:
     description: Given to trusted memebers on the server.
@@ -131,6 +135,15 @@ permissions:
       Build.mode.adventure: true
       Build.mode.spectator: true
       Build.users: true
+
+  Build.gamemodes.*:
+    description:
+    children:
+      Build.mode.set.others: true
+      Build.mode.survival: true
+      Build.mode.survival: true
+      Build.mode.adventure: true
+      Build.mode.spectator: true
 
   Build.command.*:
     description: Access to Build commands.
