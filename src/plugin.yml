@@ -61,6 +61,8 @@ commands:
     aliases: [invsee,inv,view]
   map:
     description: Command to view maps...
+  data:
+    description: Command to view data.
 permissions:
 
   Build.*:

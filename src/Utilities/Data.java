@@ -37,49 +37,49 @@ public class Data extends BuildUtils
     }
 
 
-    public void reload(Player p)
-    {
-        try
+        public void reload(Player p)
         {
-            // TODO
-            if (!file.getParentFile().exists())
+            try
             {
-                file.getParentFile().mkdirs();
+                // TODO
+                if (!file.getParentFile().exists())
+                {
+                    file.getParentFile().mkdirs();
+                }
+
+                if (!file.exists()) {
+                    PrintWriter pw = new PrintWriter(file, "UTF-8");
+                    pw.print("{");
+                    pw.print("}");
+                    pw.flush();
+                    pw.close();
+                }
+                json = (JSONObject) parser.parse(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+
+                String fm = p.hasPlayedBefore() ? "Played before." : "Has not played before.";
+                String wl = p.isWhitelisted() ? "Player is whitelisted" : "Player is not whitelisted";
+    //            JSONObject myObject = new JSONObject();
+                defaults.put("UUID", p.getUniqueId().toString());
+                defaults.put("Name", p.getName());
+                defaults.put("IP",p.getAddress().toString());
+                defaults.put("World",p.getWorld().getName());
+                defaults.put("FirstJoin",getStamp().toString());
+                defaults.put("LastJoined", 0);
+                defaults.put("Playedbefore",fm);
+                defaults.put("EXPTotal",p.getTotalExperience());
+                defaults.put("Health", p.getHealth());
+                defaults.put("Whitelisted",wl);
+                defaults.put("Permissions", p.getEffectivePermissions().toArray());
+    //            JSONArray myArray = new JSONArray();
+    //            myArray.add(p.getEffectivePermissions().toArray());
+    //            defaults.put("Permissions",myArray);
+                save();
+
+            } catch (Exception ex)
+            {
+                ex.printStackTrace();
             }
-
-            if (!file.exists()) {
-                PrintWriter pw = new PrintWriter(file, "UTF-8");
-                pw.print("{");
-                pw.print("}");
-                pw.flush();
-                pw.close();
-            }
-            json = (JSONObject) parser.parse(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-
-            String fm = p.hasPlayedBefore() ? "Played before." : "Has not played before.";
-            String wl = p.isWhitelisted() ? "Player is whitelisted" : "Player is not whitelisted";
-//            JSONObject myObject = new JSONObject();
-            defaults.put("UUID", p.getUniqueId().toString());
-            defaults.put("Name", p.getName());
-            defaults.put("IP",p.getAddress().toString());
-            defaults.put("World",p.getWorld().getName());
-            defaults.put("FirstJoin",getStamp().toString());
-            defaults.put("LastJoined", 0);
-            defaults.put("Playedbefore",fm);
-            defaults.put("EXPTotal",p.getTotalExperience());
-            defaults.put("Health", p.getHealth());
-            defaults.put("Whitelisted",wl);
-            defaults.put("Permissions", p.getEffectivePermissions().toArray());
-//            JSONArray myArray = new JSONArray();
-//            myArray.add(p.getEffectivePermissions().toArray());
-//            defaults.put("Permissions",myArray);
-            save();
-
-        } catch (Exception ex)
-        {
-            ex.printStackTrace();
         }
-    }
 
     public void update(Player p)
     {

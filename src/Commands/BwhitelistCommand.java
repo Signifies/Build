@@ -97,6 +97,7 @@ public class BwhitelistCommand extends BuildUtils implements CommandExecutor
 
                         case "clear":
                         case "ci":
+
 //                            Bukkit.getServer().getWhitelistedPlayers().clear();
                             for(OfflinePlayer p : Bukkit.getWhitelistedPlayers())
                             {

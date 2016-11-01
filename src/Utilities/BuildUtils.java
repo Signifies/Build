@@ -108,6 +108,7 @@ public class BuildUtils
      *
      * @param e
      */
+
     public void exceptionDebug(Exception e)
     {
         if(Build.DEBUG)

@@ -352,7 +352,7 @@ public class BuildEvents extends BuildUtils implements Listener
         format = format.replace("{uuid}",p.getUniqueId().toString());
         Bukkit.getServer().broadcastMessage(color(format));
 
-        data.update(p);
+//        data.update(p);
         Debug.log(Debug.pluginLog() + "&6Updating player data for " + p.getName());
         log(color("%prefix% &4&lUpdating player data for &6&l" + p.getName()));
 

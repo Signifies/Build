@@ -5,6 +5,7 @@ import Events.BuildEvents;
 import Events.BuildMode;
 import Events.CommandRestrict;
 import Events.Menu;
+import SQLAPI.SQL;
 import Utilities.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
@@ -33,7 +34,7 @@ public class Build extends JavaPlugin
     private ArrayList<UUID> spy = new ArrayList<>();
     public Menu menu;
     BuildMode mode;
-
+    private SQL sql;
     public void onEnable()
     {
         conf = new BuildConfig(this);
@@ -44,6 +45,7 @@ public class Build extends JavaPlugin
         loadEvents();
         commands();
         menu = new Menu(this);
+        sql = new SQL(getConfig().getString("Database.host"), getConfig().getString("Database.username"), getConfig().getString("Database.password"), getConfig().getString("Database.database"));
     }
 
     void configuration()
