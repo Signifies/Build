@@ -11,6 +11,8 @@ commands:
     aliases: [set, bd, bld]
   warp:
     description: Warp command.
+  list:
+    description: List command.
   setwarp:
     description: Sets a warps.
     aliases: [swarp, sw]
@@ -26,7 +28,7 @@ commands:
     description: Teleports to a player
     aliases: [teleport]
   tptoggle:
-    description:
+    description: Toggles weither or not a player wants tp requests.
     aliases: [tpt,toggle]
   tphere:
     description: Main command for tphere.
@@ -51,7 +53,7 @@ commands:
     description: Modified  whitelist command.
     aliases: [wl]
   message:
-    description:
+    description: private message command
     aliases: [msg,pm,hi,whatsup,sup]
   mode:
     description: Command to change players mode on the server.
@@ -124,6 +126,7 @@ permissions:
       Build.mode.survival: true
       Build.mode.creative: true
       Build.chat: true
+      Build.list: true
 
   Build.mode.*:
     description: Access to all mode changing permissions

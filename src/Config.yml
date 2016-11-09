@@ -56,6 +56,14 @@ Build:
     motd:
     - "&7     ----- &a&lBuild Server &7-----"
     - "&7> Use /help"
+  list:
+    messages: "&cError: No staff members online. &b&o.-."
+    format:
+    - "&a---------- &7Build Server &a----------"
+    - "&cStaff online: &a%staff%"
+    - "&bCurrent Time: &f%time%"
+    - "&7------------------------------"
+
 #
 #
 Messages:

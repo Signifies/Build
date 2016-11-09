@@ -203,6 +203,71 @@ public class BuildUtils
         }
     }
 
+    public String getPlugins()
+    {
+
+        String value = "";
+        for(Plugin plugins : Bukkit.getServer().getPluginManager().getPlugins())
+        {
+            value = plugins.toString();
+        }
+        return value;
+    }
+
+    public void getAllCommands (CommandSender sender)
+    {
+
+       List<String> value = new ArrayList<>();
+        for(Plugin plugins : Bukkit.getServer().getPluginManager().getPlugins())
+        {
+            for (String commands : Bukkit.getServer().getPluginManager().getPlugin(plugins.getName()).getDescription().getCommands().keySet())
+            {
+                sender.sendMessage(Bukkit.getServer().getPluginManager().getPlugin(plugins.getName()).getDescription().getCommands().get(commands).get("description").toString());
+            }
+        }
+    }
+
+
+
+    public void allCommands(CommandSender sender)
+    {
+        for(Plugin plugins : Bukkit.getServer().getPluginManager().getPlugins())
+        {
+            Bukkit.getServer().getPluginManager().getPlugin(plugins.getName()).getDescription().getCommands().keySet().forEach(s -> sender.sendMessage(s));
+        }
+    }
+
+
+    public void getBuildCommands(Player p)
+    {
+       Bukkit.getServer().getPluginManager().getPlugin("Build").getDescription().getCommands().keySet().forEach(s -> p.sendMessage(s));
+    }
+
+    public void getBuildCommands(CommandSender p)
+    {
+        Bukkit.getServer().getPluginManager().getPlugin("Build").getDescription().getCommands().keySet().forEach(s -> p.sendMessage(color("&a"+s)));
+    }
+
+    public String getStaff(String format)
+    {
+//        Bukkit.getServer().getOnlinePlayers().forEach(s -> BuildPermissions.BUILD_MANGEMENT.checkPermission(s));
+        StringBuilder sb = new StringBuilder();
+        for(Player p : Bukkit.getServer().getOnlinePlayers())
+        {
+            if(BuildPermissions.BUILD_MANGEMENT.checkPermission(p))
+            {
+                sb.append(p.getName() + ", ");
+                Build.staff.add(p.getName());
+            }
+        }
+        if(sb.length() < 1)
+            return color(format);
+            //return color("&cError: No staff members online. &b&o.-.");
+        else
+            return sb.toString();
+    }
+
+
     public void sendText(List<String> text, CommandSender sender)
     {
         for(String txt: text)
@@ -211,6 +276,19 @@ public class BuildUtils
             sender.sendMessage(color(txt));
         }
     }
+
+    public void sendText(List<String> text, CommandSender sender, String s)
+    {
+        for(String txt: text)
+        {
+            txt = txt.replace("%player%",sender.getName());
+            txt = txt.replace("%staff%",getStaff(s));
+            txt =txt.replace("%time%",getStamp().toString());
+            sender.sendMessage(color(txt));
+        }
+    }
+
+
 
     public ArrayList<String> warps(List<String> s)
     {

@@ -239,6 +239,27 @@ public class BuildCommand extends BuildUtils implements CommandExecutor
                             }
                             break;
 
+                        case "?":
+                            sender.sendMessage(color("&b---- &7Commands &b----"));
+                            getBuildCommands(sender);
+                            break;
+
+                        case "pl":
+                            if(!BuildPermissions.BUILD_MANGEMENT.checkPermission(sender))
+                                return true;
+                            sender.sendMessage(color("&b---- &aPlugins &b----"));
+                            sender.sendMessage(getPlugins());
+                            break;
+
+                        case "allcmds":
+                        case  "commands":
+                            if(!BuildPermissions.BUILD_MANGEMENT.checkPermission(sender))
+                                return true;
+                            sender.sendMessage(color("&4---- &7ALL server Commands &4----"));
+//                            getAllCommands(sender);
+                            allCommands(sender);
+                        break;
+
                         default:
                             sender.sendMessage(color("&7You've used incorrect arguments with this command, use &a/set&7."));
                     }

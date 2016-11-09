@@ -32,6 +32,8 @@ public class Build extends JavaPlugin
     private ArrayList<UUID> notify = new ArrayList<>();
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<UUID> spy = new ArrayList<>();
+    public static ArrayList<String> staff = new ArrayList<>();
+
     public Menu menu;
     BuildMode mode;
     private SQL sql;
@@ -45,7 +47,7 @@ public class Build extends JavaPlugin
         loadEvents();
         commands();
         menu = new Menu(this);
-        sql = new SQL(getConfig().getString("Database.host"), getConfig().getString("Database.username"), getConfig().getString("Database.password"), getConfig().getString("Database.database"));
+//        sql = new SQL(getConfig().getString("Database.host"), getConfig().getString("Database.username"), getConfig().getString("Database.password"), getConfig().getString("Database.database"));
     }
 
     void configuration()
@@ -131,6 +133,10 @@ public class Build extends JavaPlugin
         return messages;
     }
     public ArrayList<UUID> getSpy() {return spy;}
+    public ArrayList<String> getStaff()
+    {
+        return staff;
+    }
     BuildUtils u = new BuildUtils();
     public String getNoPermission()
     {

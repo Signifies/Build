@@ -1,5 +1,6 @@
 package Utilities;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -42,6 +43,8 @@ public enum  BuildPermissions
     COMMAND_BYPASS_TOGGLE("Build.command.bypass.toggle"),
     BUILD_ITEM_COMMAND("Build.item"),
 
+    BUILD_MANAGEMENT_LIST("Build.list"),
+
     COMMAND_BYPASS("Build.bypass.command"),
     BUILD_SPY_COMMAND("Build.socialspy"),
     BUILD_CHAT("Build.chat"),
@@ -70,6 +73,7 @@ public enum  BuildPermissions
     BUILD_BYPASS_PICKUP("Build.bypass.pickup"),
     BUILD_BYPASS_TPTOGGLE("Build.bypass.toggle"),
     BUILD_BYPASS_STATUS("Build.status"),
+    BUILD_MANGEMENT("Build.manger"),
 
     PLUGIN_DONATOR_2 ("plugin.donator.2");
 
@@ -80,16 +84,33 @@ public enum  BuildPermissions
     }
 
     public boolean checkPermission(Player p){
+        System.out.println(check(p));
         return p.hasPermission(getKey());
     }
 
     public boolean checkPermission(CommandSender sender)
     {
+        System.out.println(check(sender));
         return sender.hasPermission(getKey());
     }
 
     public String getKey() {
         return key;
     }
+
+
+
+    public String check(Player p)
+    {
+        String s = p.hasPermission(getKey()) ? "" : ChatColor.RED +"Error, " + p.getName() + " does not have the permission: " + getKey();
+
+        return BuildUtils.prefix +"" + s;
+    }
+    public String check(CommandSender p)
+    {
+        String s = p.hasPermission(getKey()) ? "" : ChatColor.RED +"Error, " + p.getName() + " does not have the permission: " + getKey();
+        return BuildUtils.prefix +"" + s;
+    }
+
 }
 
