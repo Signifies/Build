@@ -279,8 +279,14 @@ public class BuildUtils
 
     public void sendText(List<String> text, CommandSender sender, String s)
     {
+        int amt = Bukkit.getServer().getOnlinePlayers().size();
+
+        int max = Bukkit.getServer().getMaxPlayers();
+
         for(String txt: text)
         {
+            txt = txt.replace("%online_players%", ""+amt);
+            txt = txt.replace("%max_players%", ""+max);
             txt = txt.replace("%player%",sender.getName());
             txt = txt.replace("%staff%",getStaff(s));
             txt =txt.replace("%time%",getStamp().toString());

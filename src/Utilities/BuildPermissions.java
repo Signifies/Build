@@ -102,14 +102,14 @@ public enum  BuildPermissions
 
     public String check(Player p)
     {
-        String s = p.hasPermission(getKey()) ? "" : ChatColor.RED +"Error, " + p.getName() + " does not have the permission: " + getKey();
+        String s = p.hasPermission(getKey()) ? "" : BuildUtils.prefix +"" +ChatColor.RED +"Error, " + p.getName() + " does not have the permission: " + getKey();
 
-        return BuildUtils.prefix +"" + s;
+        return s;
     }
     public String check(CommandSender p)
     {
-        String s = p.hasPermission(getKey()) ? "" : ChatColor.RED +"Error, " + p.getName() + " does not have the permission: " + getKey();
-        return BuildUtils.prefix +"" + s;
+        String s = p.hasPermission(getKey()) ? "" : BuildUtils.prefix +"" +ChatColor.RED +"Error, " + p.getName() + " does not have the permission: " + getKey();
+        return  s;
     }
 
 }

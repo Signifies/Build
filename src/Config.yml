@@ -60,6 +60,7 @@ Build:
     messages: "&cError: No staff members online. &b&o.-."
     format:
     - "&a---------- &7Build Server &a----------"
+    - "&7Online:&a %online_players% %max_players%"
     - "&cStaff online: &a%staff%"
     - "&bCurrent Time: &f%time%"
     - "&7------------------------------"

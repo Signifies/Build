@@ -5,6 +5,7 @@ import Utilities.BuildUtils;
 import me.ES96.com.Build;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,7 +16,7 @@ import java.util.UUID;
 /**
  * Created by ES359 on 11/9/16.
  */
-public class ListCommand extends BuildUtils
+public class ListCommand extends BuildUtils implements CommandExecutor
 {
 
 
@@ -23,7 +24,6 @@ public class ListCommand extends BuildUtils
     public ListCommand(Build main)
     {
         instance = main;
-        instance.getCommand("list").setExecutor(instance);
     }
 
 
