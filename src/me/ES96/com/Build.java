@@ -1,12 +1,12 @@
 package me.ES96.com;
 
-import Commands.*;
-import Events.BuildEvents;
-import Events.BuildMode;
-import Events.CommandRestrict;
-import Events.Menu;
+import commands.*;
+import events.BuildEvents;
+import events.BuildMode;
+import events.CommandRestrict;
+import events.Menu;
 import SQLAPI.SQL;
-import Utilities.*;
+import utilities.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -14,7 +14,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -26,6 +25,7 @@ public class Build extends JavaPlugin
     public static boolean DEBUG = false;
     private Warps warp = new Warps(this);
     private BuildConfig conf = new BuildConfig(this);
+    private WorldConfig wconf = new WorldConfig(this);
     public PluginDescriptionFile pdfFile = this.getDescription();
     private ArrayList<UUID> toggle = new ArrayList<>();
     private ArrayList<UUID> buildMode = new ArrayList<>();
@@ -33,6 +33,8 @@ public class Build extends JavaPlugin
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<UUID> spy = new ArrayList<>();
     public static ArrayList<String> staff = new ArrayList<>();
+    public WorldMangement worldMangement = new WorldMangement(this);
+
 
     public Menu menu;
     BuildMode mode;
@@ -60,7 +62,7 @@ public class Build extends JavaPlugin
 
     void loadEvents()
     {
-        Debug.log(Debug.pluginLog() + "&bLoading Events...");
+        Debug.log(Debug.pluginLog() + "&bLoading events...");
         PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new BuildEvents(this), this);
         pm.registerEvents(new CommandRestrict(this), this);
@@ -71,6 +73,13 @@ public class Build extends JavaPlugin
         Debug.log(Debug.pluginLog() + "&aLoading Warps...");
         warp.saveDefaultWarpConfig();
         warp.saveWarpConfig();
+    }
+
+    void loadWorlds()
+    {
+        Debug.log(Debug.pluginLog() + "&6Loading Worlds...");
+        wconf.saveDefaultWorldConfig();
+        wconf.saveWorldConfig();
     }
 
 
@@ -96,7 +105,7 @@ public class Build extends JavaPlugin
         registerCmd("whitelist", new BwhitelistCommand(this));
         registerCmd("mode", new BmodeCommand(this));
         registerCmd("inventory", new BinvseeCommand(this));
-        registerCmd("map",new BMapCommand());
+        registerCmd("map",new BMapCommand(this));
         registerCmd("list", new ListCommand(this));
     }
 
@@ -147,5 +156,12 @@ public class Build extends JavaPlugin
     {
         return u.color(getBConfig().getBuildConfig().getString("Mode.Build"));
     }
-
+    public WorldConfig getWConfig()
+    {
+        return wconf;
+    }
+    public WorldMangement getWorldMangement()
+    {
+        return worldMangement;
+    }
 }

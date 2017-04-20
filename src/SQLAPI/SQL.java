@@ -1,7 +1,7 @@
 package SQLAPI;
 
-import Utilities.BuildUtils;
-import Utilities.Debug;
+import utilities.BuildUtils;
+import utilities.Debug;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

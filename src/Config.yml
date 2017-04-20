@@ -52,14 +52,14 @@ Interact:
 # # # # # # # # # # # # # # # #
 Build:
   MOTD:
-    server-list: "&a&l&k|| &7&nBuild Server&r &a&l&k||"
+    server-list: "&a&l&k|| &6&nCoffee's &2&lDevelopment. &a&l&k||"
     motd:
     - "&7     ----- &a&lBuild Server &7-----"
     - "&7> Use /help"
   list:
     messages: "&cError: No staff members online. &b&o.-."
     format:
-    - "&a---------- &7Build Server &a----------"
+    - "&a---------- &4Dev Server &a----------"
     - "&7Online:&a %online_players% %max_players%"
     - "&cStaff online: &a%staff%"
     - "&bCurrent Time: &f%time%"
@@ -68,8 +68,8 @@ Build:
 #
 #
 Messages:
-  join: "&7Join&a> &8{player}"
-  quit: "&7Quit&a> &8{player}"
+  join: "&8Join&a> &7{player}"
+  quit: "&8Quit&a> &7{player}"
 
 # # # # # # # # # # # #
 Whitelist:
@@ -133,7 +133,7 @@ blocked-cmds:
 # {gold}, {player}, {uuid}, {display_name}
 Inventory-settings:
   size: 18
-  name: "&a&l&nBuild Help"
+  name: "&4&l&nServer Help"
 #
 Items:
 - BOOK
@@ -148,7 +148,7 @@ BOOK:
     - "&a---------------------"
     - "&cBuild information section"
     - "&6This server is a test/development server,"
-    - "&6used by ES96 for Map downloads and development."
+    - "&6used by SendCoffee for Map downloads and development."
     - "&a---------------------"
 DIAMOND:
   Name: "&bServer ranks."
@@ -171,6 +171,8 @@ ENCHANTED_BOOK:
     - "&a&l     ------"
     - "&7> &a/help"
     - "&7> &a/warp <warp name>"
+    - "&7> &a/list"
+    - "&7> &a/motd"
     - "&7> &a/warp list"
     - "&7> &a/msg"
     - "&7> &a/tpa"

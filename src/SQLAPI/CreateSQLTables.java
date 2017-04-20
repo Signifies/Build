@@ -1,7 +1,6 @@
 package SQLAPI;
 
-import Utilities.BuildUtils;
-import Utilities.Debug;
+import utilities.Debug;
 
 import java.sql.SQLException;
 
