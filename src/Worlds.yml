@@ -10,8 +10,8 @@ World-Management:
       place: false
       break: false
       drop: true
-      chat: true
-        chat-format: ""
+      chat:
+        chat-format:
         chat-enabled: true
       interact: true
       explosion: false

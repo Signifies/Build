@@ -62,7 +62,7 @@ public class BMapCommand extends BuildUtils implements CommandExecutor
         if(!BuildPermissions.BUILD_MAP_COMMAND.checkPermission(p))
         {
             p.sendMessage(color("%prefix% &cYou don't have permission to use /map"));
-        }else if(args.length >1)
+        }else if(args.length >0)
         {
             switch (args[0])
             {

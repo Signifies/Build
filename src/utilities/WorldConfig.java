@@ -15,7 +15,7 @@ public class WorldConfig extends BuildUtils {
 
     private FileConfiguration WorldConfig = null;
     private File WorldConfigFile = null;
-    private static final String fileName = "Config.yml";
+    private static final String fileName = "Worlds.yml";
 
     private Build main;
 

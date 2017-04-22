@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="Build:jar">
-    <output-path>$PROJECT_DIR$/../../../Finished Builds/Build</output-path>
+    <output-path>$USER_HOME$/Documents/Dev/Spigot Development/Completed Builds/Build</output-path>
     <root id="archive" name="Build.jar">
       <element id="module-output" name="Build" />
     </root>

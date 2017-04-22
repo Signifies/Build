@@ -22,7 +22,7 @@ import java.util.UUID;
 public class Build extends JavaPlugin
 {
 
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     private Warps warp = new Warps(this);
     private BuildConfig conf = new BuildConfig(this);
     private WorldConfig wconf = new WorldConfig(this);
@@ -47,6 +47,7 @@ public class Build extends JavaPlugin
         configuration();
         loadWarps(); //TODO
         loadEvents();
+        loadWorlds();
         commands();
         menu = new Menu(this);
 //        sql = new SQL(getConfig().getString("Database.host"), getConfig().getString("Database.username"), getConfig().getString("Database.password"), getConfig().getString("Database.database"));
