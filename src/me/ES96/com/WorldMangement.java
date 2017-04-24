@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import sun.management.counter.perf.PerfLongArrayCounter;
 import utilities.BuildUtils;
 import utilities.Debug;
 
@@ -34,7 +35,7 @@ public class WorldMangement extends BuildUtils
         Timestamp ts = getStamp();
         Location location = player.getWorld().getSpawnLocation();
 
-        if(instance.getWConfig().getWorldConfig().getConfigurationSection("World-Management.saved-worlds."+world) == null){
+        if(instance.getWConfig().getWorl'dConfig().getConfigurationSection("World-Management.saved-worlds."+world) == null){
             write("World-Management.saved-worlds",world);
             write(path+""+world+".name",world);
             write(path+""+world+".author",author);
@@ -60,40 +61,29 @@ public class WorldMangement extends BuildUtils
     }
     */
 
+//    ConfigurationSection path = instance.getWConfig().getWorldConfig().getConfigurationSection("World-Management.saved-worlds");
+
     public void writeWorld(Player player)
     {
-        ConfigurationSection path = instance.getWConfig().getWorldConfig().getConfigurationSection("World-Management.saved-worlds");
-        String world = player.getWorld().getName();
-        String author = player.getName();
-        UUID uuid = player.getUniqueId();
-        Timestamp ts = getStamp();
-        Location location = player.getWorld().getSpawnLocation();
-
-        if(path != null){
-            Debug.log(Debug.pluginLog() + "Path isn't null");
-        write("World-Management.saved-worlds",world);
-        return;
-    }
-
-        Debug.log(Debug.pluginLog() + "The path was null...");
-        path = path.createSection(world) ;
-        path.set("name", world);
-        path.set("author", author);
-        //path.set("uuid", uuid);
-        path.set("permission", "Build.worlds."+world );
-        path.set("time-created", ts.toString());
-        //path.set("world-location", location.toString());
-        path.set("place", false);
-        path.set("break", false);
-        path.set("drop", true);
-        path.set("pickup", true);
-        path.set("chat.chat-enabled", true);
-        path.set("chat.chat-format", color("&8&l> &b[&7%world%&b] &a%name% &7%msg%").toString());
-        path.set("interact", true);
-        path.set("explosion", false);
-        log(Debug.pluginLog() + "&a&lThe world, &n" + world + "&a&l has been added.");
-        player.sendMessage(color( "&a&lThe world, &n" + world + "&a&l has been added."));
+        instance.getWConfig().getWorldConfig().set("World-Management."+player.getWorld().getName() + "", player.getWorld().getName());
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() +".name", player.getWorld().getName());
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".author", player.getName());
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".uuid", player.getUniqueId().toString());
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".permission","Build.worlds." +player.getWorld().getName());
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".time-created", getStamp());
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".break",false);
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".place",false);
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".drop",false);
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".pickup",false);
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".chat.enabled",true);
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".chat.format","&8&l> &b[&7%world%&b] &a%name% &7%msg%");
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".interact", true);
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".explosion", false);
         instance.getWConfig().saveWorldConfig();
+        log(Debug.pluginLog() + "&a&lThe world, &n" + player.getWorld().getName() + "&a&l has been added.");
+        player.sendMessage(color( "&a&lThe world, &n" + player.getWorld().getName() + "&a&l has been added."));
+//        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + "",);
+
     }
 
     void write(String path, Object value)

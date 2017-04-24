@@ -52,7 +52,7 @@ Interact:
 # # # # # # # # # # # # # # # #
 Build:
   MOTD:
-    server-list: "&a&l&k|| &6&nCoffee's &2&lDevelopment. &a&l&k||"
+    server-list: "&a&l&k|| &4&nDev &2&lServer &a&l&k||"
     motd:
     - "&7     ----- &a&lBuild Server &7-----"
     - "&7> Use /help"
