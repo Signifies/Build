@@ -62,7 +62,7 @@ public class BuildEvents extends BuildUtils implements Listener
 
         Player p = event.getPlayer();
 
-        boolean placement = main.getBConfig().getBuildConfig().getBoolean("Block-place.Enabled") ;
+        boolean placement = main.getWConfig().getWorldConfig().getBoolean("World-Management." +p.getWorld().getName() + ".place");
         boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
 
         if(placement)
@@ -96,9 +96,9 @@ public class BuildEvents extends BuildUtils implements Listener
          }else
          {
          event.setCancelled(true);
-         if(main.getBConfig().getBuildConfig().getBoolean("Block-place.use-msg"))
+         if(main.getWConfig()().getWorldConfig()().getBoolean()("Block-place.use-msg"))
          {
-         p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Block-place.msg")));
+         p.sendMessage(color(main.getWConfig()().getWorldConfig()().getString()("Block-place.msg")));
          }
          }
          }else
@@ -114,7 +114,7 @@ public class BuildEvents extends BuildUtils implements Listener
     {
         Player p = event.getPlayer();
 
-        boolean breaking = main.getBConfig().getBuildConfig().getBoolean("Block-break.Enabled") ;
+        boolean breaking = main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".break");
         boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
 
         if(breaking)
@@ -148,7 +148,7 @@ public class BuildEvents extends BuildUtils implements Listener
         Player p = event.getPlayer();
 
 
-        boolean chat = main.getBConfig().getBuildConfig().getBoolean("Chat.Enabled") ;
+        boolean chat = main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.Enabled") ;
         boolean perm = BuildPermissions.BUILD_CHAT.checkPermission(p);
 
         if(chat)
@@ -172,10 +172,10 @@ public class BuildEvents extends BuildUtils implements Listener
         }
 
 
-        if(!main.getBConfig().getBuildConfig().getBoolean("Chat.custom-chat.Enabled")) return;
+        if(!main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.format")) return;
 
         String location =  color("&7X:&a"+p.getLocation().getBlockX() +" &7Y&a:" +p.getLocation().getBlockY() + " &7Z&a:" + p.getLocation().getBlockZ() +"&r" );
-        String format = main.getBConfig().getBuildConfig().getString("Chat.custom-chat.Format");
+        String format = main.getWConfig().getWorldConfig().getString("World-Management." +p.getWorld().getName() + ".chat.format");
         format = format.replace("%name%", p.getName());
         format = format.replace("%msg%", event.getMessage());
         format = format.replace("%world%", p.getWorld().getName());
@@ -195,7 +195,7 @@ public class BuildEvents extends BuildUtils implements Listener
 
         Player p = event.getPlayer();
 
-        boolean interact = main.getBConfig().getBuildConfig().getBoolean("Interact.Enabled") ;
+        boolean interact = main.getWConfig().getWorldConfig().getBoolean("World-Management." + p.getWorld().getName()+ ".interact") ;
         boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
 
         if(interact)
@@ -215,7 +215,7 @@ public class BuildEvents extends BuildUtils implements Listener
         }else
         {
             event.setCancelled(true);
-            if(main.getBConfig().getBuildConfig().getBoolean("Interact.use-msg"))
+            if(main.getWConfig().getWorldConfig().getBoolean("Interact.use-msg"))
             {
                 p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Interact.msg")));
             }
@@ -227,7 +227,7 @@ public class BuildEvents extends BuildUtils implements Listener
     public void drop(PlayerDropItemEvent event) {
         Player p = event.getPlayer();
 
-        boolean drop = main.getBConfig().getBuildConfig().getBoolean("Item-drop.Enabled");
+        boolean drop = main.getWConfig().getWorldConfig().getBoolean("World-Management." + p.getWorld().getName() + ".drop");
         boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
 
         if (drop) {
@@ -253,7 +253,7 @@ public class BuildEvents extends BuildUtils implements Listener
     {
         Player p = event.getPlayer();
 
-        boolean pickup = main.getBConfig().getBuildConfig().getBoolean("Item-pickup.Enabled");
+        boolean pickup = main.getWConfig().getWorldConfig().getBoolean("World-Management." +p.getWorld().getName() + ".pickup");
         boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
 
         if (pickup) {
@@ -282,10 +282,11 @@ public class BuildEvents extends BuildUtils implements Listener
     @EventHandler
     public void onExplosionPrime(ExplosionPrimeEvent event)
     {
+
         if(event.getEntity() instanceof TNTPrimed)
         {
 
-            if(main.getBConfig().getBuildConfig().getBoolean("Explosion.Enabled"))
+            if(main.getWConfig().getWorldConfig().getBoolean("Explosion.Enabled"))
             {
                 event.setCancelled(false);
             }else
@@ -345,7 +346,7 @@ public class BuildEvents extends BuildUtils implements Listener
     {
         Player p = event.getPlayer();
         event.setQuitMessage(null);
-        String format = main.getBConfig().getBuildConfig().getString("Messages.quit");
+        String format = main.getWConfig().getWorldConfig().getString("Messages.quit");
         format = format.replace("{player}", p.getName());
         format = format.replace("{display_name}",p.getDisplayName());
         format = format.replace("{uuid}",p.getUniqueId().toString());
@@ -366,12 +367,12 @@ public class BuildEvents extends BuildUtils implements Listener
         Debug.log(Debug.pluginLog() + "&aWhitelist event called.");
         Player p = event.getPlayer();
         UUID uuid = p.getUniqueId();
-        String config= this.main.getBConfig().getBuildConfig().getString("Whitelist.kick-message");
+        String config= this.main.getWConfig().getWorldConfig().getString("Whitelist.kick-message");
         config = config.replace("%playername%",p.getName());
         config = config.replace("%uuid%",uuid.toString());
         config = config.replace("#nl", "\n");
 
-        String alert = this.main.getBConfig().getBuildConfig().getString("Whitelist.whitelist-alert");
+        String alert = this.main.getWConfig().getWorldConfig().getString("Whitelist.whitelist-alert");
         alert = alert.replace("%playername%",p.getName());
         alert = alert.replace("%uuid%",uuid.toString());
         alert = alert.replace("#nl", "\n");

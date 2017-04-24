@@ -75,7 +75,7 @@ public class WorldMangement extends BuildUtils
         instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".place",false);
         instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".drop",false);
         instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".pickup",false);
-        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".chat.enabled",true);
+        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".chat.Enabled",true);
         instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".chat.format","&8&l> &b[&7%world%&b] &a%name% &7%msg%");
         instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".interact", true);
         instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + ".explosion", false);
