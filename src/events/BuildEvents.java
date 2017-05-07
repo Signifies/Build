@@ -172,7 +172,7 @@ public class BuildEvents extends BuildUtils implements Listener
         }
 
 
-        if(!main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.format")) return;
+        if(!main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.format.enabled")) return;
 
         String location =  color("&7X:&a"+p.getLocation().getBlockX() +" &7Y&a:" +p.getLocation().getBlockY() + " &7Z&a:" + p.getLocation().getBlockZ() +"&r" );
         String format = main.getWConfig().getWorldConfig().getString("World-Management." +p.getWorld().getName() + ".chat.format");
@@ -346,7 +346,7 @@ public class BuildEvents extends BuildUtils implements Listener
     {
         Player p = event.getPlayer();
         event.setQuitMessage(null);
-        String format = main.getWConfig().getWorldConfig().getString("Messages.quit");
+        String format = main.getBConfig().getBuildConfig().getString("Messages.quit");
         format = format.replace("{player}", p.getName());
         format = format.replace("{display_name}",p.getDisplayName());
         format = format.replace("{uuid}",p.getUniqueId().toString());
@@ -367,18 +367,19 @@ public class BuildEvents extends BuildUtils implements Listener
         Debug.log(Debug.pluginLog() + "&aWhitelist event called.");
         Player p = event.getPlayer();
         UUID uuid = p.getUniqueId();
-        String config= this.main.getWConfig().getWorldConfig().getString("Whitelist.kick-message");
+        String config= this.main.getBConfig().getBuildConfig().getString("Whitelist.kick-message");
         config = config.replace("%playername%",p.getName());
         config = config.replace("%uuid%",uuid.toString());
         config = config.replace("#nl", "\n");
 
-        String alert = this.main.getWConfig().getWorldConfig().getString("Whitelist.whitelist-alert");
+        String alert = this.main.getBConfig().getBuildConfig().getString("Whitelist.whitelist-alert");
         alert = alert.replace("%playername%",p.getName());
         alert = alert.replace("%uuid%",uuid.toString());
         alert = alert.replace("#nl", "\n");
 
         if(checkWhitelist()) {
             if(!p.isWhitelisted()) {
+
                 event.disallow(PlayerLoginEvent.Result.KICK_OTHER, color(config));
                 Bukkit.getServer().getConsoleSender().sendMessage(color(alert));
                 for(Player staff : Bukkit.getServer().getOnlinePlayers()){
