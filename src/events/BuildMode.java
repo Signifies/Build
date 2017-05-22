@@ -43,8 +43,6 @@ public class BuildMode extends BuildUtils
 
     public void setBuildMode(Player p)
     {
-        if(BuildPermissions.BUILD_TOGGLE_NORMAL.checkPermission(p) && !p.getWorld().getName().equalsIgnoreCase("Build-C"))
-        {
             if(!isInBuildMode(p.getUniqueId()))
             {
                 build.getBuildMode().add(p.getUniqueId());
@@ -54,17 +52,12 @@ public class BuildMode extends BuildUtils
                 build.getBuildMode().remove(p.getUniqueId());
                 p.sendMessage(color("%prefix% &7You have &cdisabled &7building for yourself."));
             }
-        }else
-        {
-            p.sendMessage(color("&7You don't have permission to change to this mode."));
-        }
     }
 
 
     public void setMode(Player player)
     {
-        if(BuildPermissions.BUILD_TOGGLE.checkPermission(player))
-        {
+
 
             if(!isInBuildMode(player.getUniqueId()))
             {
@@ -72,7 +65,7 @@ public class BuildMode extends BuildUtils
 
                 player.setGameMode(GameMode.CREATIVE);
                 setArmor(player);
-                player.setPlayerListName(color("&bBuilder&7> &r"+ player.getName()));
+                player.setPlayerListName(color("&5Builder&7> &r"+ player.getName()));
                 player.setFlySpeed(0.5f);
                 player.setPlayerWeather(WeatherType.CLEAR);
                 player.resetPlayerTime();
@@ -90,15 +83,10 @@ public class BuildMode extends BuildUtils
                 player.setDisplayName(player.getName());
                 player.setFlySpeed(0.1f);
                 player.setPlayerWeather(WeatherType.CLEAR);
-                player.getInventory().clear();
+//                player.getInventory().clear();
                 build.getBuildMode().remove(player.getUniqueId());
                 player.setPlayerListName(player.getName());
                 player.sendMessage(color("%prefix% &7You have been set out of &aBuild Mode&7."));
             }
-        }else
-        {
-            player.sendMessage(color("&7You don't have permission to change to this mode."));
         }
-    }
-
 }

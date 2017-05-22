@@ -60,7 +60,7 @@ commands:
     aliases: [gm]
   inventory:
     description: Command to view into other players inventories.
-    aliases: [invsee,inv,view]
+    aliases: [inv,view]
   map:
     description: Command to view maps...
   data:

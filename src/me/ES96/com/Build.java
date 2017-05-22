@@ -1,10 +1,7 @@
 package me.ES96.com;
 
 import commands.*;
-import events.BuildEvents;
-import events.BuildMode;
-import events.CommandRestrict;
-import events.Menu;
+import events.*;
 import SQLAPI.SQL;
 import utilities.*;
 import org.bukkit.Bukkit;
@@ -67,6 +64,7 @@ public class Build extends JavaPlugin
         PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new BuildEvents(this), this);
         pm.registerEvents(new CommandRestrict(this), this);
+//        pm.registerEvents(new Invsee(this), this);
     }
 
     void loadWarps()
@@ -106,6 +104,7 @@ public class Build extends JavaPlugin
         registerCmd("whitelist", new BwhitelistCommand(this));
         registerCmd("mode", new BmodeCommand(this));
         registerCmd("inventory", new BinvseeCommand(this));
+//        registerCmd("invsee",new Invsee(this));
         registerCmd("map",new BMapCommand(this));
         registerCmd("list", new ListCommand(this));
     }

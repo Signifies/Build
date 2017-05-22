@@ -30,6 +30,12 @@ public enum  BuildPermissions
     BUILD_INVSEE_OTHERS("Build.invsee.others"),
     BUILD_TOGGLE("Build.toggle.buildmode"),
 
+    BUILD_CHAT_COLOR("Build.chat.color"),
+    BUILD_CHAT_WORLD("Build.chat.world"),
+    BUILD_CHAT_EXP("Build.chat.exp"),
+    BUILD_CHAT_LOCATION("Build.chat.location"),
+    BUILD_CHAT_ITEM("Build.chat.item"),
+
     BUILD_TOGGLE_NORMAL("Build.toggle"),
     BUILD_MESSAGE_COMMAND("Build.message"),
     BUILD_COMMAND_CLEAR("Build.ci"),

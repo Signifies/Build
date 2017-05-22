@@ -51,7 +51,7 @@ public class CommandRestrict extends BuildUtils implements CommandExecutor, List
                {
                    if(instance.getNotifications().contains(staff.getUniqueId()))
                    {
-                       staff.sendMessage(color("&c&l> &8[&4Warning&8] &c" + p.getName() + " &7used the &4blocked cmd: &c" + command));
+                       staff.sendMessage(color("&5Alert&c&l> &c" + p.getName() + " &7used the &4blocked cmd: &c" + command));
                    }
                }
            }

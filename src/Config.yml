@@ -12,8 +12,11 @@ Mode:
 #
 messaging:
   format:
-    from: "&9[&7Msg&9]&r &6From: %sender% &f%msg%"
-    to: "&9[&7Msg&9]&r &6To: %target% &f%msg%"
+    from: "&6[&4PM&6]&r &6From: &a%sender% &f%msg%"
+    to: "&6[&4PM&6]&r &6To: &c%target% &f%msg%"
+#
+#
+mention-format: "&7%player% &a@Mentioned &7 you&f!"
 #
 Chat:
   Enabled: true
@@ -52,7 +55,7 @@ Interact:
 # # # # # # # # # # # # # # # #
 Build:
   MOTD:
-    server-list: "&a&l&k|| &4&nDev &2&lServer &a&l&k||"
+    server-list: "&a&l&k|| &4&nBuild &2&lServer &a&l&k||"
     motd:
     - "&7     ----- &a&lBuild Server &7-----"
     - "&7> Use /help"
@@ -68,8 +71,8 @@ Build:
 #
 #
 Messages:
-  join: "&8Join&a> &7{player}"
-  quit: "&8Quit&a> &7{player}"
+  join: "&3Join&a> &7{player}"
+  quit: "&4Quit&a> &7{player}"
 
 # # # # # # # # # # # #
 Whitelist:

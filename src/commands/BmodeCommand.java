@@ -154,7 +154,7 @@ public class BmodeCommand extends BuildUtils implements CommandExecutor
                             case "build":
                                 if(args.length > 1)
                                 {
-                                    if(BuildPermissions.BUILD_MODE_OTHERS.checkPermission(p))
+                                    if(BuildPermissions.BUILD_TOGGLE.checkPermission(p))
                                     {
                                         Player t = Bukkit.getPlayer(args[1]);
                                         if(t == null) {p.sendMessage(color("&cError - The player, &f" + args[1] + "&c is null!"));return true;}
@@ -172,7 +172,7 @@ public class BmodeCommand extends BuildUtils implements CommandExecutor
                             case "builder":
                                 if(args.length > 1)
                                 {
-                                    if(BuildPermissions.BUILD_MODE_OTHERS.checkPermission(p))
+                                    if(BuildPermissions.BUILD_TOGGLE.checkPermission(p))
                                     {
                                         Player t = Bukkit.getPlayer(args[1]);
                                         if(t == null) {p.sendMessage(color("&cError - The player, &f" + args[1] + "&c is null!"));return true;}

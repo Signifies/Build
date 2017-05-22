@@ -1,5 +1,13 @@
 package events;
 
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.GameMode;
+import org.bukkit.Sound;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import utilities.BuildPermissions;
 import utilities.BuildUtils;
 import utilities.Data;
@@ -171,13 +179,71 @@ public class BuildEvents extends BuildUtils implements Listener
             return;
         }
 
-
-        if(!main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.format.enabled")) return;
-
         String location =  color("&7X:&a"+p.getLocation().getBlockX() +" &7Y&a:" +p.getLocation().getBlockY() + " &7Z&a:" + p.getLocation().getBlockZ() +"&r" );
+
+        String message = event.getMessage();
+
+        if(BuildPermissions.BUILD_CHAT_COLOR.checkPermission(p))
+        {
+            message = message.replace("&","§");
+        }
+
+        if(BuildPermissions.BUILD_CHAT_WORLD.checkPermission(p))
+        {
+            message = message.replace("#world", p.getWorld().getName());
+        }
+
+        if(BuildPermissions.BUILD_CHAT_EXP.checkPermission(p))
+        {
+            message = message.replace("#exp", ""+p.getExpToLevel());
+        }
+
+        if(BuildPermissions.BUILD_CHAT_LOCATION.checkPermission(p))
+        {
+            message = message.replace("#location", location);
+            message = message.replace("#loc", location);
+        }
+
+        if(BuildPermissions.BUILD_CHAT_ITEM.checkPermission(p))
+        {
+            if(message.contains("#tp"))
+            {
+                message = message.replace("#tp", "");
+//                message = message.replace("#tp", "¯\\_ツ_/¯");
+                TextComponent m = new TextComponent("Click to teleport to "+p.getName());
+
+                m.setColor(ChatColor.GREEN);
+
+                String format = color("&bTeleports to player when clicked!");
+
+                m.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(format).create()));
+
+                m.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "tp " +p));
+
+                for(Player player : Bukkit.getServer().getOnlinePlayers())
+                {
+                    player.spigot().sendMessage(m);
+                }
+
+            }
+        }
+
+        if(message.contains("@" +p.getName()))
+        {
+            message = message.replace("@", color("@&b&n"+p.getName()+"&r"));
+            p.playSound(p.getLocation(), Sound.NOTE_PLING, 10.0f, 10.0f);
+
+            String f = color(main.getBConfig().getBuildConfig().getString("mention-format"));
+            f = f.replace("%player%",p.getName());
+            p.sendMessage(f);
+        }
+
+
+        if(!main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.use-format")) return;
+
         String format = main.getWConfig().getWorldConfig().getString("World-Management." +p.getWorld().getName() + ".chat.format");
         format = format.replace("%name%", p.getName());
-        format = format.replace("%msg%", event.getMessage());
+        format = format.replace("%msg%", message);
         format = format.replace("%world%", p.getWorld().getName());
         format = format.replace("%UUID%", p.getUniqueId().toString());
         format = format.replace("%location%",location);
@@ -187,6 +253,17 @@ public class BuildEvents extends BuildUtils implements Listener
 
         event.setFormat(color(format));
 
+    }
+
+    @EventHandler
+    public void onDamage(final EntityDamageByEntityEvent paramEntityDamageByEntityEvent) {
+        if (paramEntityDamageByEntityEvent.getDamager() instanceof Player && paramEntityDamageByEntityEvent.getEntity() instanceof Player) {
+            final Player localPlayer = (Player)paramEntityDamageByEntityEvent.getDamager();
+            if (localPlayer.getGameMode() == GameMode.CREATIVE) {
+                paramEntityDamageByEntityEvent.setCancelled(true);
+                localPlayer.sendMessage("§6§l(!)§r§c You are not allowed to pvp whilst in creative");
+            }
+        }
     }
 
     @EventHandler
