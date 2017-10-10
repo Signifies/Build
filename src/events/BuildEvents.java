@@ -218,7 +218,7 @@ public class BuildEvents extends BuildUtils implements Listener
 
                 m.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(format).create()));
 
-                m.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "tp " +p));
+                m.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " +p.getName()));
 
                 for(Player player : Bukkit.getServer().getOnlinePlayers())
                 {
@@ -230,12 +230,15 @@ public class BuildEvents extends BuildUtils implements Listener
 
         if(message.contains("@" +p.getName()))
         {
-            message = message.replace("@", color("@&b&n"+p.getName()+"&r"));
-            p.playSound(p.getLocation(), Sound.NOTE_PLING, 10.0f, 10.0f);
+            for(Player users : event.getRecipients())
+            {
+                message = message.replace("@"+p.getName(), color(" @&b&n"+p.getName()+"&r "));
+                users.playSound(p.getLocation(), Sound.NOTE_PLING, 10.0f, 10.0f);
 
-            String f = color(main.getBConfig().getBuildConfig().getString("mention-format"));
-            f = f.replace("%player%",p.getName());
-            p.sendMessage(f);
+                String f = color(main.getBConfig().getBuildConfig().getString("mention-format"));
+                f = f.replace("%player%",p.getName());
+                users.sendMessage(f);
+            }
         }
 
 

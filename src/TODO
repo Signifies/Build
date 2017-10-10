@@ -1,0 +1,4 @@
+# Fix known issues with build.
+# Redo Build's event system to comply with WorldManagement feature.
+# Write an API hook for Build to hook into other software (GameCore)
+# Check GameCores #TODO file for more details.
