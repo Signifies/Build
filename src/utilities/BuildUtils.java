@@ -162,7 +162,7 @@ public class BuildUtils
         value.add("&a/build &7<itempickup> [true || false]");
         return value;
     }
-    public ArrayList<String> usage()
+    protected ArrayList<String> usage()
     {
         ArrayList<String> value = new ArrayList<>();
 
@@ -325,7 +325,7 @@ public class BuildUtils
         {
             p.sendMessage("");
         }
-        p.sendMessage(color("&7Your chat has been &7&nCleared&c, by an Admin, &a&n" + p.getName()));
+        p.sendMessage(color("&7Your chat has been &7&nCleared&c."));
     }
 
     public void selfClear(CommandSender sender) {

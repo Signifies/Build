@@ -47,7 +47,7 @@ public class CreateSQLTables {
                 values = values.replace("%tablename%", tableName);
 
                 val.getConnection().prepareStatement(values).executeUpdate();
-                Debug.log("&bSQL table has been created!");
+                Debug.log("&bSQL table has been created!",1);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

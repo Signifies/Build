@@ -21,6 +21,9 @@ public class Debug
     static public String SEVERE = "[SEVERE] &c";
     static public String PREFIX = BuildUtils.prefix;
     private final static String VERSION = "1.4.0";
+    public static boolean DEBUG = true; //Create constructor initilized inside main method?? Or variable access?
+    private static int priorityLevel = 0;       //using static?
+
     static public String pluginLog()
     {
         return LOG+ ""+ PREFIX;
@@ -31,40 +34,68 @@ public class Debug
         return ChatColor.translateAlternateColorCodes('&',s);
     }
 
-    static public void debugEnabled()
+    //Use prority in the form of a switch statement to be returned as boolean.
+//We can then check those said values with our DEBUG variable.
+//Variable priority ranges from 1-3 1 being the highest, 2 being moderate
+//3 being the lowest.
+
+    static private boolean priority(int priority_0_1)
     {
-        if(Build.DEBUG)
+        priorityLevel = priority_0_1;
+
+        if(!DEBUG)
         {
-            System.out.println(Debug.LOG + " Debugging is enabled...");
+            switch(priorityLevel)
+            {
+                case 0:
+                    return false;
+                case 1:
+                    return true;
+
+                case 2:
+                    return false;
+
+                default:
+                    return false;
+            }
         }else
         {
-            System.out.println(Debug.LOG +"Debugging is " + Build.DEBUG);
+            return true;
         }
     }
 
-    static public void log(String message)
+    static public void log(String msg, int level)
     {
-        if(Build.DEBUG)
+        if(priority(level))
         {
-            Bukkit.getServer().getConsoleSender().sendMessage(color(message));
+            System.out.println(color(msg));
         }
     }
 
-    static public void log(Player p, String message)
+    static public void log(int level, Player p, String msg)
     {
-        if(Build.DEBUG)
+        if(priority(level))
         {
-            p.sendMessage(color(message));
+            p.sendMessage(color(msg));
         }
     }
 
-    static public void log(CommandSender p, String message)
+    static public void log(int level, CommandSender p, String msg)
     {
-        if(Build.DEBUG)
+        if(priority(level))
         {
-            p.sendMessage(color(message));
+            p.sendMessage(color(msg));
         }
     }
+
+
+    /* //TODO comeback to this later.
+    case : //Add an if statement to check certain aspects
+            //of a monitor or medium priority.
+            //Maybe check instance of player??
+    return false;
+    break;
+    */
 
 
     public static  boolean getValue()
@@ -112,7 +143,7 @@ public class Debug
         value.add("347a17b6-5851-46c2-8747-5576443a311a");
         for(String text : value)
         {
-            Debug.log(ChatColor.GOLD + text);
+            Debug.log(ChatColor.GOLD + text,1);
         }
 
         return value;

@@ -52,7 +52,7 @@ public class Build extends JavaPlugin
 
     void configuration()
     {
-        Debug.log(Debug.pluginLog() +"&6Loading configuration...");
+        Debug.log(Debug.pluginLog() +"&6Loading configuration...",1);
         conf.saveDefaultBuildConfig();
         conf.saveBuildConfig();
 
@@ -60,7 +60,7 @@ public class Build extends JavaPlugin
 
     void loadEvents()
     {
-        Debug.log(Debug.pluginLog() + "&bLoading events...");
+        Debug.log(Debug.pluginLog() + "&bLoading events...",1);
         PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new BuildEvents(this), this);
         pm.registerEvents(new CommandRestrict(this), this);
@@ -69,14 +69,14 @@ public class Build extends JavaPlugin
 
     void loadWarps()
     {
-        Debug.log(Debug.pluginLog() + "&aLoading Warps...");
+        Debug.log(Debug.pluginLog() + "&aLoading Warps...",1);
         warp.saveDefaultWarpConfig();
         warp.saveWarpConfig();
     }
 
     void loadWorlds()
     {
-        Debug.log(Debug.pluginLog() + "&6Loading Worlds...");
+        Debug.log(Debug.pluginLog() + "&6Loading Worlds...",1);
         wconf.saveDefaultWorldConfig();
         wconf.saveWorldConfig();
     }
@@ -84,7 +84,7 @@ public class Build extends JavaPlugin
 
     void commands()
     {
-        Debug.log(Debug.pluginLog() + "&2Loading commands...");
+        Debug.log(Debug.pluginLog() + "&2Loading commands...",1);
         registerCmd("build", new BuildCommand(this,mode));
         registerCmd("warp",new BwarpCommand(this));
         registerCmd("setwarp", new BsetwarpCommand(this));

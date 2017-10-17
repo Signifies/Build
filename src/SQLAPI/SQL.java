@@ -66,7 +66,7 @@ public class SQL extends BuildUtils {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://" + ip + "/" + db + "?user=" + userName + "&password=" + access);
-            Debug.log("&4Connection successful.");
+            Debug.log("&4Connection successful.",1);
         } catch (Exception e) {
             exceptionDebug(e);
         }

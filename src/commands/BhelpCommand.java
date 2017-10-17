@@ -137,15 +137,15 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
 
         for(String i : items)
         {
-            Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.");
+            Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.",0);
             ItemStack isx= new ItemStack(Material.getMaterial(instance.getBConfig().getBuildConfig().getString(i +".item")));
             String path = i+".item" + ".slot";
-            Debug.log(Debug.pluginLog() + "ITEM: " + is.getType());
+            Debug.log(Debug.pluginLog() + "ITEM: " + is.getType(),0);
             ItemMeta im = is.getItemMeta();
             im.setDisplayName(i);
             is.setItemMeta(im);
 //            inventory.setItem(instance.getBConfig().getBuildConfig().getInt(path),is);
-            Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.");
+            Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.",0);
         }
     }
 
@@ -166,7 +166,7 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
             name = name.replace("{uuid}",value.getUniqueId().toString());
             if(name.equals(null))
             {
-                Debug.log(Debug.SEVERE + "&cERROR. Name is null.");
+                Debug.log(Debug.SEVERE + "&cERROR. Name is null.",0);
             }
 //            Debug.log(Debug.pluginLog() + "&bName variable data : " + name);
 //            Debug.log(Debug.pluginLog() + "&cName variable path : " + s+".Name");
@@ -206,12 +206,12 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
     int hash;
     public void BAEHelp(Player p)
     {
-        Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.");
+        Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.",0);
         inventory  = Bukkit.getServer().createInventory(p, instance.getBConfig().getBuildConfig().getInt("Inventory-settings.size"), ChatColor.translateAlternateColorCodes('&',instance.getBConfig().getBuildConfig().getString("Inventory-settings.name")));
 
         hash = inventory.hashCode();
 
-        Debug.log(Debug.pluginLog() + "&ccreateInventory hash data: " + hash);
+        Debug.log(Debug.pluginLog() + "&ccreateInventory hash data: " + hash,0);
 
 //        inventory.setItem(7, new ItemStack(Material.CAKE));
         getItem(inventory,p);
@@ -226,7 +226,7 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
 
         msg = msg.replace("§","");
         msg = msg.replace("&","");
-        Debug.log(Debug.pluginLog() + "&6Testing message: &b" + msg);
+        Debug.log(Debug.pluginLog() + "&6Testing message: &b" + msg,0);
 
         return msg;
     }
@@ -266,7 +266,7 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
         {
             if(getBAEInv().getViewers().contains(p))
             {
-                Debug.log("Testing...");
+                Debug.log("Testing...",0);
                 event.setCancelled(true);
             }else
             {

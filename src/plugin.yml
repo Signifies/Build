@@ -113,8 +113,10 @@ permissions:
       Build.chat.clearself: true
       Build.warp.list: true
       Build.ci: true
+      Build.guest: true
 
   Build.guest:
+    default: true
     description: Usually given to guest users on build server...
     children:
       Build.spawn: true
@@ -124,7 +126,6 @@ permissions:
       Build.help: true
       Build.mode.set: true
       Build.mode.survival: true
-      Build.mode.creative: true
       Build.chat: true
       Build.list: true
 

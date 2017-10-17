@@ -41,28 +41,7 @@ public class BuildEvents extends BuildUtils implements Listener
     {
         main = instance;
     }
-    /*
-    @EventHandler
-    public void WCE(final WeatherChangeEvent event) {
-        event.setCancelled(true);
-        World world = event.getWorld();
-        world.setStorm(false);
-        world.setThundering(false);
-    }
-    */
 
-
-//    @EventHandler
-    public void weather(WeatherChangeEvent event)
-    {
-//        World w = Bukkit.getWorld("Build");
-        World world = event.getWorld();
-
-        event.setCancelled(true);
-        world.setStorm(false);
-        world.setThundering(false);
-        world.setGameRuleValue("doFireTick","false");
-    }
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event)
@@ -95,26 +74,6 @@ public class BuildEvents extends BuildUtils implements Listener
                 p.sendMessage(color(main.getBConfig().getBuildConfig().getString("Block-place.msg")));
             }
         }
-        /**
-         *  if()
-         {
-         if(BuildPermissions.BUILD_BYPASS_PLACE.checkPermission(p) || !(main.gettMode().isInBuildMode(p.getUniqueId())))
-         {
-         event.setCancelled(false);
-         }else
-         {
-         event.setCancelled(true);
-         if(main.getWConfig()().getWorldConfig()().getBoolean()("Block-place.use-msg"))
-         {
-         p.sendMessage(color(main.getWConfig()().getWorldConfig()().getString()("Block-place.msg")));
-         }
-         }
-         }else
-         {
-         event.setCancelled(false);
-         }
-         *
-         */
     }
 
     @EventHandler
@@ -156,7 +115,8 @@ public class BuildEvents extends BuildUtils implements Listener
         Player p = event.getPlayer();
 
 
-        boolean chat = main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.Enabled") ;
+//        boolean chat = main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.Enabled") ;
+        boolean chat = main.getBConfig().getBuildConfig().getBoolean("Chat.Enabled"); //TODO remove later. use this one ^
         boolean perm = BuildPermissions.BUILD_CHAT.checkPermission(p);
 
         if(chat)
@@ -252,9 +212,23 @@ public class BuildEvents extends BuildUtils implements Listener
         format = format.replace("%location%",location);
 //                format = format.replaceAll("%IP%", "" + player.getAddress());
 
-        //TODO: Add vault to get prefix from PermissionsEX...
+        if(main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName()+"chat.per-world"))
+        {
+            for(Player user : Bukkit.getServer().getOnlinePlayers())
+            {
+                World perWorld = user.getWorld();
+                if(perWorld.getPlayers().contains(p))
+                {
+                    user.sendMessage(color(format));
+                }else
+                {
+                    event.setFormat(color(format));
+                } //TODO fix this tomorrow.
+            }
+        }
 
-        event.setFormat(color(format));
+
+
 
     }
 
@@ -262,7 +236,7 @@ public class BuildEvents extends BuildUtils implements Listener
     public void onDamage(final EntityDamageByEntityEvent paramEntityDamageByEntityEvent) {
         if (paramEntityDamageByEntityEvent.getDamager() instanceof Player && paramEntityDamageByEntityEvent.getEntity() instanceof Player) {
             final Player localPlayer = (Player)paramEntityDamageByEntityEvent.getDamager();
-            if (localPlayer.getGameMode() == GameMode.CREATIVE) {
+            if (localPlayer.getGameMode() == GameMode.CREATIVE && main.gettMode().isInBuildMode(localPlayer.getUniqueId())) {
                 paramEntityDamageByEntityEvent.setCancelled(true);
                 localPlayer.sendMessage("§6§l(!)§r§c You are not allowed to pvp whilst in creative");
             }
@@ -379,7 +353,7 @@ public class BuildEvents extends BuildUtils implements Listener
     @EventHandler
     public void serverPing(ServerListPingEvent event)
     {
-        Debug.log(Debug.pluginLog() + "&9Server Ping event called.");
+        Debug.log(Debug.pluginLog() + "&9Server Ping event called.",0);
         String pingmessage = color(main.getBConfig().getBuildConfig().getString("Build.MOTD.server-list"));
 
         pingmessage = pingmessage.replaceAll("&", "\u00A7");
@@ -412,7 +386,7 @@ public class BuildEvents extends BuildUtils implements Listener
         sendText(motd,p);
 
         data = new Data(new File("plugins/Build/PlayerData/" + p.getUniqueId() + ".json"),p);
-        Debug.log(Debug.pluginLog() + "&6Creating file for " + p.getName());
+        Debug.log(Debug.pluginLog() + "&6Creating file for " + p.getName(),1);
         log(color("%prefix% &7Creating data for player, &6" + p.getName()));
 
 
@@ -433,7 +407,7 @@ public class BuildEvents extends BuildUtils implements Listener
         Bukkit.getServer().broadcastMessage(color(format));
 
 //        data.update(p);
-        Debug.log(Debug.pluginLog() + "&6Updating player data for " + p.getName());
+        Debug.log(Debug.pluginLog() + "&6Updating player data for " + p.getName(),1);
         log(color("%prefix% &4&lUpdating player data for &6&l" + p.getName()));
 
 
@@ -444,7 +418,7 @@ public class BuildEvents extends BuildUtils implements Listener
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
 
-        Debug.log(Debug.pluginLog() + "&aWhitelist event called.");
+        Debug.log(Debug.pluginLog() + "&aWhitelist event called.",0);
         Player p = event.getPlayer();
         UUID uuid = p.getUniqueId();
         String config= this.main.getBConfig().getBuildConfig().getString("Whitelist.kick-message");

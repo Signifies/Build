@@ -2,3 +2,11 @@
 # Redo Build's event system to comply with WorldManagement feature.
 # Write an API hook for Build to hook into other software (GameCore)
 # Check GameCores #TODO file for more details.
+# Completely redo Build mode...
+# Completely redo chat command. Messy ass code and has to be implemented for worldmanagement. //Done.
+- Add chat mute per world, + chat mute delay.. //Waiting until World management system is running properly.
+# GUI Feature: Have an option to run a command or feature when an item is clicked in the gui. (Rework this into vote.)
+# Add /nether,end, world tp command???
+# Add weather, day/night command.
+# set default build permissions prefix to default. //Done for the most part.
+# Add per-world chat system.

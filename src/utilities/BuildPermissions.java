@@ -30,11 +30,7 @@ public enum  BuildPermissions
     BUILD_INVSEE_OTHERS("Build.invsee.others"),
     BUILD_TOGGLE("Build.toggle.buildmode"),
 
-    BUILD_CHAT_COLOR("Build.chat.color"),
-    BUILD_CHAT_WORLD("Build.chat.world"),
-    BUILD_CHAT_EXP("Build.chat.exp"),
-    BUILD_CHAT_LOCATION("Build.chat.location"),
-    BUILD_CHAT_ITEM("Build.chat.item"),
+
 
     BUILD_TOGGLE_NORMAL("Build.toggle"),
     BUILD_MESSAGE_COMMAND("Build.message"),
@@ -58,6 +54,15 @@ public enum  BuildPermissions
     BUILD_CHAT_CLEAR("Build.chat.clear"),
     BUILD_CHAT_PERMS("Build.perms"),
     BUILD_CHAT_CLEAR_OTHERS("Build.chat.clearothers"),
+
+    BUILD_CHAT_COLOR("Build.chat.color"),
+    BUILD_CHAT_WORLD("Build.chat.world"),
+    BUILD_CHAT_EXP("Build.chat.exp"),
+    BUILD_CHAT_LOCATION("Build.chat.location"),
+    BUILD_CHAT_ITEM("Build.chat.item"),
+    BUILD_SET_CHAT("Build.set.chat"),
+    BUILD_SET_TNT("Build.set.tnt"),
+
     BUILD_RELOAD("Build.reload"),
 
     BUILD_MAP_COMMAND("Build.map"),
@@ -71,8 +76,7 @@ public enum  BuildPermissions
     BUILD_SET_DROP("Build.set.drop"),
     BUILD_SET_PICKUP("Build.set.pickup"),
     BUILD_SET_WARPS("Build.warp.set"),
-    BUILD_SET_CHAT("Build.set.chat"),
-    BUILD_SET_TNT("Build.set.tnt"),
+
 
     BUILD_BYPASS_CHAT("Build.bypass.chat"),
     BUILD_BYPASS_PLACE("Build.bypass.place"),
@@ -93,13 +97,13 @@ public enum  BuildPermissions
     }
 
     public boolean checkPermission(Player p){
-        System.out.println(check(p));
+       Debug.log(check(p),0);
         return p.hasPermission(getKey());
     }
 
     public boolean checkPermission(CommandSender sender)
     {
-        System.out.println(check(sender));
+       Debug.log(check(sender),0);
         return sender.hasPermission(getKey());
     }
 

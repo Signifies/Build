@@ -65,7 +65,7 @@ public class BuildMode extends BuildUtils
 
                 player.setGameMode(GameMode.CREATIVE);
                 setArmor(player);
-                player.setPlayerListName(color("&5Builder&7> &r"+ player.getName()));
+                player.setPlayerListName(color("&5Builder &r"+ player.getName()));
                 player.setFlySpeed(0.5f);
                 player.setPlayerWeather(WeatherType.CLEAR);
                 player.resetPlayerTime();

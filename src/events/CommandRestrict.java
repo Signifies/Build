@@ -31,7 +31,7 @@ public class CommandRestrict extends BuildUtils implements CommandExecutor, List
     @EventHandler
     public void onCmd(PlayerCommandPreprocessEvent event)
     {
-        Debug.log(getPrefix() + " &aCommand pre-process event.");
+        Debug.log(getPrefix() + " &aCommand pre-process event.",0);
         Player p = event.getPlayer();
         UUID uuid = p.getUniqueId();
 

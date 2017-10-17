@@ -21,8 +21,8 @@ mention-format: "&7%player% &a@Mentioned &7 you&f!"
 Chat:
   Enabled: true
   msg: "&7Chat has been set to &a%value%&7."
-  chat-disabled: "&7The chat has been &asilenced."
-  no-permission: "&cYou don't have permission to speak here. &4/msg only."
+  chat-disabled: "&7> The chat has been &fmuted&7."
+  no-permission: "&cYou don't have permission to speak here."
   custom-chat:
     Enabled: true
     Format: "&0[&8%world%&0] &7%name% &6&l> &7%msg%"

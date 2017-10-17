@@ -59,7 +59,7 @@ public class BsetwarpCommand extends BuildUtils implements CommandExecutor
 //                warpList(main,args[0]);
 
                 main.getWarps().saveWarpConfig();
-                Debug.log("&cAdding the warp " + warp + " To the config...");
+                Debug.log("&cAdding the warp " + warp + " To the config...",1);
                 p.sendMessage(color("&7Set the warp, &e" + args[0] + " &7..."));
             }
         }
