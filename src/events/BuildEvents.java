@@ -115,8 +115,8 @@ public class BuildEvents extends BuildUtils implements Listener
         Player p = event.getPlayer();
 
 
-//        boolean chat = main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.Enabled") ;
-        boolean chat = main.getBConfig().getBuildConfig().getBoolean("Chat.Enabled"); //TODO remove later. use this one ^
+        boolean chat = main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.Enabled") ;
+//        boolean chat = main.getBConfig().getBuildConfig().getBoolean("Chat.Enabled"); //TODO remove later. use this one ^
         boolean perm = BuildPermissions.BUILD_CHAT.checkPermission(p);
 
         if(chat)
@@ -164,7 +164,7 @@ public class BuildEvents extends BuildUtils implements Listener
             message = message.replace("#loc", location);
         }
 
-        if(BuildPermissions.BUILD_CHAT_ITEM.checkPermission(p))
+        if(BuildPermissions.BUILD_CHAT_TP.checkPermission(p))
         {
             if(message.contains("#tp"))
             {
@@ -201,10 +201,9 @@ public class BuildEvents extends BuildUtils implements Listener
             }
         }
 
-
         if(!main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName() + ".chat.use-format")) return;
-
         String format = main.getWConfig().getWorldConfig().getString("World-Management." +p.getWorld().getName() + ".chat.format");
+
         format = format.replace("%name%", p.getName());
         format = format.replace("%msg%", message);
         format = format.replace("%world%", p.getWorld().getName());
@@ -212,31 +211,23 @@ public class BuildEvents extends BuildUtils implements Listener
         format = format.replace("%location%",location);
 //                format = format.replaceAll("%IP%", "" + player.getAddress());
 
-        if(main.getWConfig().getWorldConfig().getBoolean("World-Management."+p.getWorld().getName()+"chat.per-world"))
+        if(main.getBConfig().getBuildConfig().getBoolean("Chat.per-world"))
         {
-            for(Player user : Bukkit.getServer().getOnlinePlayers())
+            event.getRecipients().clear();
+            for(Player plrs : event.getPlayer().getWorld().getPlayers())
             {
-                World perWorld = user.getWorld();
-                if(perWorld.getPlayers().contains(p))
-                {
-                    user.sendMessage(color(format));
-                }else
-                {
-                    event.setFormat(color(format));
-                } //TODO fix this tomorrow.
+                event.getRecipients().add(plrs);
             }
         }
 
-
-
-
+        event.setFormat(color(format));
     }
 
     @EventHandler
     public void onDamage(final EntityDamageByEntityEvent paramEntityDamageByEntityEvent) {
         if (paramEntityDamageByEntityEvent.getDamager() instanceof Player && paramEntityDamageByEntityEvent.getEntity() instanceof Player) {
             final Player localPlayer = (Player)paramEntityDamageByEntityEvent.getDamager();
-            if (localPlayer.getGameMode() == GameMode.CREATIVE && main.gettMode().isInBuildMode(localPlayer.getUniqueId())) {
+            if (localPlayer.getGameMode() == GameMode.CREATIVE || main.gettMode().isInBuildMode(localPlayer.getUniqueId())) { //TODO fix so build mode applys too.
                 paramEntityDamageByEntityEvent.setCancelled(true);
                 localPlayer.sendMessage("§6§l(!)§r§c You are not allowed to pvp whilst in creative");
             }

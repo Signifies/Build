@@ -1,6 +1,7 @@
 
  package utilities;
 
+import com.avaje.ebean.validation.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -39,6 +40,7 @@ public class Debug
 //Variable priority ranges from 1-3 1 being the highest, 2 being moderate
 //3 being the lowest.
 
+
     static private boolean priority(int priority_0_1)
     {
         priorityLevel = priority_0_1;
@@ -53,7 +55,7 @@ public class Debug
                     return true;
 
                 case 2:
-                    return false;
+                       return false;
 
                 default:
                     return false;
@@ -68,7 +70,7 @@ public class Debug
     {
         if(priority(level))
         {
-            System.out.println(color(msg));
+           Bukkit.getServer().getConsoleSender().sendMessage(color(msg));
         }
     }
 
@@ -98,15 +100,6 @@ public class Debug
     */
 
 
-    public static  boolean getValue()
-    {
-        return Build.DEBUG;
-    }
-
-    public static void setValue(boolean val)
-    {
-        Build.DEBUG = val;
-    }
 
     /**
      * Simple debug flag enabler.
@@ -129,8 +122,8 @@ public class Debug
              *
              */
 
-            setValue(Boolean.parseBoolean(args[1]));
-            sender.sendMessage(color("[&4DEBUG&f] &c--> &7You have set Debug status to &4&l: " + getValue()));
+//            setValue(Boolean.parseBoolean(args[1]));
+//            sender.sendMessage(color("[&4DEBUG&f] &c--> &7You have set Debug status to &4&l: " + getValue()));
         }
     }
 

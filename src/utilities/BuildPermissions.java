@@ -17,7 +17,7 @@ public enum  BuildPermissions
     BUILD_COMMAND_WARP_LIST("Build.warp.list"),
     BUILD_COMMAND_DELWARP("Build.warp.delete"),
     BUILD_COMMAND_WORLD_KICK("Build.world.kick"),
-    BUILD_COMMAND_KICK(""),
+    BUILD_COMMAND_KICK("Build.command.kick"),
     BUILD_COMMAND_SETSPAWN("Build.setspawn"),
     BUILD_COMMAND_SPAWN("Build.spawn"),
     BUILD_COMMAND_DELSPAWN("Build.delspawn"),
@@ -59,7 +59,7 @@ public enum  BuildPermissions
     BUILD_CHAT_WORLD("Build.chat.world"),
     BUILD_CHAT_EXP("Build.chat.exp"),
     BUILD_CHAT_LOCATION("Build.chat.location"),
-    BUILD_CHAT_ITEM("Build.chat.item"),
+    BUILD_CHAT_TP("Build.chat.tp"),
     BUILD_SET_CHAT("Build.set.chat"),
     BUILD_SET_TNT("Build.set.tnt"),
 
@@ -97,13 +97,13 @@ public enum  BuildPermissions
     }
 
     public boolean checkPermission(Player p){
-       Debug.log(check(p),0);
+//       Debug.log(check(p),2);
         return p.hasPermission(getKey());
     }
 
     public boolean checkPermission(CommandSender sender)
     {
-       Debug.log(check(sender),0);
+//       Debug.log(check(sender),2);
         return sender.hasPermission(getKey());
     }
 
@@ -115,7 +115,7 @@ public enum  BuildPermissions
 
     public String check(Player p)
     {
-        String s = p.hasPermission(getKey()) ? "" : BuildUtils.prefix +"" +ChatColor.RED +"Error, " + p.getName() + " does not have the permission: " + getKey();
+        String s = p.hasPermission(getKey()) ? "" : BuildUtils.prefix +"" +ChatColor.RED +"Error, " + p.getName() + " does not have the permission: " + getKey(); //TODO Bug with checking permissions.
 
         return s;
     }

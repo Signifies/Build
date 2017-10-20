@@ -1,5 +1,6 @@
 package commands;
 
+import org.bukkit.event.inventory.ClickType;
 import utilities.BuildUtils;
 import utilities.Debug;
 import me.ES96.com.Build;
@@ -104,7 +105,7 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
         for(String itemKey : instance.getBConfig().getBuildConfig().getConfigurationSection("Help").getKeys(false)) {
             ItemStack is = instance.getBConfig().getBuildConfig().getItemStack("Help." + itemKey);
             ItemMeta meta = is.getItemMeta();
-            String name = instance.getBConfig().getBuildConfig().getString("Help."+itemKey + ".name");
+            String name = instance.getBConfig().get555555555555555555555555BuildConfig().getString("Help."+itemKey + ".name");
             List<String> lore = instance.getBConfig().getBuildConfig().getStringList("Help." +itemKey +".lore");
             int pos = instance.getBConfig().getBuildConfig().getInt("Help." +itemKey + ".item-pos");
             meta.setDisplayName( color(name));
@@ -153,6 +154,8 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
     public void getItem(Inventory inv,Player value)
     {
         List<String> items = instance.getBConfig().getBuildConfig().getStringList("Items");
+        String location =  color("&7X:&a"+value.getLocation().getBlockX() +" &7Y&a:" +value.getLocation().getBlockY() + " &7Z&a:" + value.getLocation().getBlockZ() +"&r" );
+
         for(String s : items)
         {
             ItemStack is = new ItemStack(Material.valueOf(s));
@@ -162,11 +165,10 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
             String name = instance.getBConfig().getBuildConfig().getString(s+".Name");
             name = name.replace("{player}",value.getName());
             name = name.replace("{display_name}",value.getDisplayName());
-            name = name.replace("{gold}", "GOLD");
             name = name.replace("{uuid}",value.getUniqueId().toString());
-            if(name.equals(null))
+            if(name == null)
             {
-                Debug.log(Debug.SEVERE + "&cERROR. Name is null.",0);
+                Debug.log(Debug.SEVERE + "&cERROR. Name is null.",2);
             }
 //            Debug.log(Debug.pluginLog() + "&bName variable data : " + name);
 //            Debug.log(Debug.pluginLog() + "&cName variable path : " + s+".Name");
@@ -179,7 +181,9 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
                 String var = lore.remove(0);
                 var = var.replace("{player}",value.getName());
                 var = var.replace("{uuid}",value.getUniqueId().toString());
-                var = var.replace("{gold}", "Bae gold.");
+                var = var.replace("{time}", getStamp().toString());
+                var = var.replace("{location}", location);
+                var = var.replace("{world}",value.getWorld().getName());
                 lore.add(ChatColor.translateAlternateColorCodes('&',var));
             }
             im.setLore(lore);
@@ -188,47 +192,18 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
         }
     }
 
-    /*
-    public void  no()
-    {
-        List<String> lore = instance.getBConfig().getBuildConfig().getStringList(s + ".lore");
-        for (int i = 0; i < lore.size(); i++)
-        {
-            String var = lore.get(i);
-//                var = var.replace("{player}",p.getName());
-//                var = var.replace("{gold}", "Bae gold.");
-            lore.add(var);
-        }
-//        im.setLore(lore);
-    }
-    */
     Inventory inventory = null;
     int hash;
     public void BAEHelp(Player p)
     {
         Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.",0);
         inventory  = Bukkit.getServer().createInventory(p, instance.getBConfig().getBuildConfig().getInt("Inventory-settings.size"), ChatColor.translateAlternateColorCodes('&',instance.getBConfig().getBuildConfig().getString("Inventory-settings.name")));
-
         hash = inventory.hashCode();
 
         Debug.log(Debug.pluginLog() + "&ccreateInventory hash data: " + hash,0);
 
-//        inventory.setItem(7, new ItemStack(Material.CAKE));
         getItem(inventory,p);
         p.openInventory(inventory);
-    }
-
-
-    public String getInvName()
-    {
-        String msg = instance.getBConfig().getBuildConfig().getString("Inventory-settings.name");
-
-
-        msg = msg.replace("§","");
-        msg = msg.replace("&","");
-        Debug.log(Debug.pluginLog() + "&6Testing message: &b" + msg,0);
-
-        return msg;
     }
 
     public Inventory getBAEInv()
@@ -249,11 +224,25 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
             {
 
                 BAEHelp(p);
-//                instance.menu.openInv(player);
                 //TODO implement vote menu here.
             }
         }
         return true;
+    }
+
+
+    //Change to boolean??
+    public void itemPermission(Player p, String item, String bookType) //Later convert to Enum...
+    {
+        String perm = instance.getBConfig().getBuildConfig().getString(item+".permission");
+        if(p.hasPermission(perm))
+        {
+            //Run give book method..
+        }else
+        {
+            p.closeInventory();
+            p.sendMessage(color("&7You're not &fallowed&7 to click that&f."));
+        }
     }
 
     @EventHandler

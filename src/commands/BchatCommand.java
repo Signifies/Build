@@ -42,31 +42,32 @@ public class BchatCommand extends BuildUtils implements CommandExecutor
                     case "c":
                         if (BuildPermissions.BUILD_CHAT_CLEAR.checkPermission(sender))
                         {
-                            clear();
-                        }
-                        else if(args.length > 1)
-                        {
-                            World world = Bukkit.getServer().getWorld(args[1]);
-
-                            if(world == null)
+                            if(args.length > 1)
                             {
-                                sender.sendMessage(color("&7>&fSorry, the world, &a" + args[1] + "&f does not exist."));
+                                World world = Bukkit.getServer().getWorld(args[1]);
+
+                                if(world == null)
+                                {
+                                    sender.sendMessage(color("&7>&fSorry, the world, &a" + args[1] + "&f does not exist."));
+                                }else
+                                {
+                                    for(Player p : world.getPlayers())
+                                    {
+                                        for(int i=0; i < 100; i++)
+                                        {
+                                            p.sendMessage("");
+
+                                        }
+                                        p.sendMessage(color("&7> The &fchat&7 has been &fcleared&7."));
+                                    }
+                                    sender.sendMessage(color("&7> You have cleared the &fchat &7for the world &f " + args[1] +"&7."));
+                                }
                             }else
                             {
-                                for(Player p : world.getPlayers())
-                                {
-                                    for(int i=0; i < 100; i++)
-                                    {
-                                        p.sendMessage("");
-
-                                    }
-                                    p.sendMessage(color("&7> The &fchat&7 has been &fcleared&7."));
-                                }
-                                sender.sendMessage(color("&7> You have cleared the &fchat &7for the world &f " + args[1] +"&7."));
+                                clear();
                             }
-
                         }
-
+                        //clear();
 //                        Bukkit.getServer().broadcastMessage(ChatColor.GOLD +"Chat has been cleared...");
                         break;
 
@@ -120,21 +121,41 @@ public class BchatCommand extends BuildUtils implements CommandExecutor
                         break;
 
                     case "mute":
-                        if(BuildPermissions.BUILD_SET_CHAT.checkPermission(sender)) {
-                            if (sender instanceof Player) {
-                                Player p = (Player) sender;
-                                //Mute chat;
-                                // using p.getWorld().getName();
-                                //For testing going to use default config.
-                                //TODO keep in mind this will prevent console from muting..
-                                main.getBConfig().getBuildConfig().set("Chat.Enabled", false);
-                                Bukkit.broadcastMessage(color(main.getBConfig().getBuildConfig().getString("Chat.chat-disabled")));
-                            } else if (args.length > 1) {
+                        if(BuildPermissions.BUILD_SET_CHAT.checkPermission(sender))
+                        {
+                            if (args.length > 1)
+                            {
+                                World world = Bukkit.getServer().getWorld(args[1]);
+                                if(world == null)
+                                {
+                                    sender.sendMessage(color("&7>&fSorry, the world, &a" + args[1] + "&f does not exist."));
+                                }else
+                                {
+                                    main.getWConfig().getWorldConfig().set("World-Management."+ world.getName() + ".chat.Enabled",false);
+                                    main.getWConfig().saveWorldConfig();
+                                    for(Player u : world.getPlayers())
+                                    {
+                                        u.sendMessage(color(main.getBConfig().getBuildConfig().getString("Chat.chat-disabled")));
+                                    }
+                                    sender.sendMessage(color("&7> You have &fmuted&7 the &fchat &7for the world &f " + world.getName() +"&7."));
+                                }
                                 //get the world
                                 //mute chat here.
                             } else if (args.length >= 2)
                             {
                                 //Mute chat, in the specific world, using the specific amount of time as the last argument provided.
+                            }else if(args.length < 1)
+                            {
+                                if((sender instanceof Player))
+                                {
+                                    Player user = (Player)sender;
+                                    main.getWConfig().getWorldConfig().set("World-Management."+ user.getWorld().getName() + ".chat.Enabled",false);
+                                    main.getWConfig().saveWorldConfig();
+                                    user.sendMessage(color("&7> You have &fmuted&7 the &fchat &7for the world &f " +user.getWorld() +"&7."));
+                                }else
+                                {
+                                    sender.sendMessage(color("&7/chat mute <world>"));
+                                }
                             }
                         }
                         break;
@@ -142,9 +163,37 @@ public class BchatCommand extends BuildUtils implements CommandExecutor
                     case "unmute":
                         if(BuildPermissions.BUILD_SET_CHAT.checkPermission(sender))
                         {
-                            main.getBConfig().getBuildConfig().set("Chat.Enabled",true);
-                            sender.sendMessage(color("&7> &fChat &7has been &funmuted&7."));
-                            Bukkit.broadcastMessage(color("&7> &fChat &7has been &aunmuted&7."));
+                            if (args.length > 1)
+                            {
+                                World world = Bukkit.getServer().getWorld(args[1]);
+                                if(world == null)
+                                {
+                                    sender.sendMessage(color("&7>&fSorry, the world, &a" + args[1] + "&f does not exist."));
+                                }else
+                                {
+                                    main.getWConfig().getWorldConfig().set("World-Management."+ world.getName() + ".chat.Enabled",true);
+                                    main.getWConfig().saveWorldConfig();
+                                    for(Player u : world.getPlayers())
+                                    {
+                                        u.sendMessage(color(main.getBConfig().getBuildConfig().getString("Chat.chat-enabled")));
+                                    }
+                                    sender.sendMessage(color("&7> You have &fun-muted&7 the &fchat &7for the world &f " + world.getName() +"&7."));
+                                }
+                                //get the world
+                                //mute chat here.
+                            }else
+                            {
+                                if((sender instanceof Player))
+                                {
+                                   Player user = (Player)sender;
+                                    main.getWConfig().getWorldConfig().set("World-Management."+ user.getWorld().getName() + ".chat.Enabled",true);
+                                    main.getWConfig().saveWorldConfig();
+                                    user.sendMessage(color("&7> You have &fun-muted&7 the &fchat &7for the world &f " +user.getWorld().getName() +"&7."));
+                                }else
+                                {
+                                    sender.sendMessage(color("&7/chat mute <world>"));
+                                }
+                            }
                         }
                         break;
                         default:

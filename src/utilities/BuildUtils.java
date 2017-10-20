@@ -1,6 +1,7 @@
 package utilities;
 
 import me.ES96.com.Build;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -24,6 +25,8 @@ public class BuildUtils
 
     @Deprecated
     protected String permission = color(getPrefix() + "&eSorry, but you are not able to use this command.");
+
+    String perm2 ="Unknown command. Type \"/help\" for help.";
 
     String author = "9c5dd792-dcb3-443b-ac6c-605903231eb2";
 
@@ -90,7 +93,23 @@ public class BuildUtils
         player.sendMessage(color(information));
     }
 
+    public static String convert(long ms) {
+        String date = DurationFormatUtils.formatDuration(ms, "dd-H-mm-ss", false);
+        String[] dateSpt = date.split("-");
 
+        int day = Integer.valueOf(dateSpt[0]);
+        int hour = Integer.valueOf(dateSpt[1]);
+        int min = Integer.valueOf(dateSpt[2]);
+        int sec = Integer.valueOf(dateSpt[3]);
+
+        StringBuilder sb = new StringBuilder();
+        if(day > 0) sb.append(day + "d ");
+        if(hour > 0) sb.append(hour + "h ");
+        if(min > 0) sb.append(min + "m ");
+        sb.append(sec + "s");
+
+        return sb.toString();
+    }
     /**
      * Gets the set plugin prefix.
      *

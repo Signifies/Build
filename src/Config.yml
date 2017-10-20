@@ -22,47 +22,24 @@ Chat:
   Enabled: true
   msg: "&7Chat has been set to &a%value%&7."
   chat-disabled: "&7> The chat has been &fmuted&7."
+  chat-enabled: "&7> The chat has been &funmuted&7."
   no-permission: "&cYou don't have permission to speak here."
-  custom-chat:
-    Enabled: true
-    Format: "&0[&8%world%&0] &7%name% &6&l> &7%msg%"
-Item-drop:
-  Enabled: false
-  use-msg: true
-  msg: "&7Dropping Items has been &cdisabled&7."
-Item-pickup:
-  Enabled: true
-  use-msg: false
-  msg: "&7You are not allowed to pick up &7Items."
-Block-place:
-  Enabled: true
-  use-msg: true
-  msg: "&7Placing blocks has been &cDisabled."
-Block-break:
-  Enabled: true
-  use-msg: true
-  msg: "&7Distroying blocks is &cDisabled."
-# Should explosions be disabled?
-Explosion:
-  Enabled: true
-Interact:
-  Enabled: true
-  use-msg: true
-  msg: "&7Interaction has been &cdisabled."
+  per-world: true
+#
 # # # # # # # # # # # # # # # #
 # Other Settings...           #
 #                             #
 # # # # # # # # # # # # # # # #
 Build:
   MOTD:
-    server-list: "&a&l&k|| &4&nBuild &2&lServer &a&l&k||"
+    server-list: "&a&l&k|| &6&lGame &2&lServer &a&l&k||"
     motd:
-    - "&7     ----- &a&lBuild Server &7-----"
+    - "&7     ----- &a&lGame Server &7-----"
     - "&7> Use /help"
   list:
     messages: "&cError: No staff members online. &b&o.-."
     format:
-    - "&a---------- &4Dev Server &a----------"
+    - "&a---------- &5Game Server &a----------"
     - "&7Online:&a %online_players% %max_players%"
     - "&cStaff online: &a%staff%"
     - "&bCurrent Time: &f%time%"
@@ -71,8 +48,8 @@ Build:
 #
 #
 Messages:
-  join: "&3Join&a> &7{player}"
-  quit: "&4Quit&a> &7{player}"
+  join: "&8[&l&a+&8] &7{player}"
+  quit: "&8[&l&4-&8] &7{player}"
 
 # # # # # # # # # # # #
 Whitelist:
@@ -80,7 +57,7 @@ Whitelist:
   whitelist-alert: "%prefix% &7The player, &a%playername% is attempting to join the server."
 #
 #
-restriction-msg: "%prefix% &6This has been disabled."
+restriction-msg: "&cUnknown command. Type '/help' for help."
 #
 blocked-cmds:
   - /deop
@@ -133,7 +110,7 @@ blocked-cmds:
 # Size: Size of the inventory. Increments of 9 only can be used.
 # Name: Inventory display name. color coded.
 # Functions that can be used are as follows:
-# {gold}, {player}, {uuid}, {display_name}
+# {player}, {uuid}, {display_name}
 Inventory-settings:
   size: 18
   name: "&4&l&nServer Help"
@@ -142,19 +119,24 @@ Items:
 - BOOK
 - DIAMOND
 - ENCHANTED_BOOK
+- WRITTEN_BOOK
 #
 BOOK:
-  Name: "&bBuild Information"
+  Name: "&bServerInformation"
+  permission: ""
+  function: ""
   slot: 0
   set:
     lore:
     - "&a---------------------"
-    - "&cBuild information section"
+    - "&cInformation section"
     - "&6This server is a test/development server,"
-    - "&6used by SendCoffee for Map downloads and development."
+    - "&6used by ES for Map downloads, development, and games."
     - "&a---------------------"
 DIAMOND:
   Name: "&bServer ranks."
+  permission: ""
+  function: ""
   slot: 2
   set:
     lore:
@@ -167,6 +149,8 @@ DIAMOND:
     - "&7> &6Dev"
 ENCHANTED_BOOK:
   Name: "&e&lCommands"
+  permission: ""
+  function: ""
   slot: 4
   set:
     lore:
@@ -183,3 +167,12 @@ ENCHANTED_BOOK:
     - "&7> &a/mode <mode>"
     - "&7> &a/mode usage"
     - "&a-----------------------"
+WRITTEN_BOOK:
+  Name: "&5Admin &fHelp &6Book"
+  permission: "Build.book.admin"
+  function: "/book??0 "
+  slot: 6
+  set:
+    lore:
+    - "&fClick &7to receive &fAdmin"
+    - "Help Book&7."
