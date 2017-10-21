@@ -5,16 +5,13 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.GameMode;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import utilities.BuildPermissions;
 import utilities.BuildUtils;
 import utilities.Data;
 import utilities.Debug;
 import me.ES96.com.Build;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
@@ -274,7 +271,7 @@ public class BuildEvents extends BuildUtils implements Listener
 
         boolean drop = main.getWConfig().getWorldConfig().getBoolean("World-Management." + p.getWorld().getName() + ".drop");
         boolean mode = main.gettMode().isInBuildMode(p.getUniqueId());
-
+        //p.getItemInHand().getItemMeta().getDisplayName().contains(color(main.getBConfig().getBuildConfig().getString("help-book.name"))) idfuckingk
         if (drop) {
             if (mode) {
                 event.setCancelled(false);
@@ -284,7 +281,7 @@ public class BuildEvents extends BuildUtils implements Listener
                 p.sendMessage(main.modeMsg());
             }
         } else if (BuildPermissions.BUILD_BYPASS_DROP.checkPermission(p)) {
-            event.setCancelled(false);
+           event.setCancelled(false);
         } else {
             event.setCancelled(true);
             if (main.getBConfig().getBuildConfig().getBoolean("Item-drop.use-msg")) {

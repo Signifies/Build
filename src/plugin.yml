@@ -58,7 +58,7 @@ commands:
   mode:
     description: Command to change players mode on the server.
     aliases: [gm]
-  inventory:
+  invsee:
     description: Command to view into other players inventories.
     aliases: [inv,view]
   map:
@@ -101,6 +101,8 @@ permissions:
       Build.chat.clear: true
       Build.whitelist.notify: true
       Build.chat.clearothers: true
+      Build.helpbook: true
+      Build.warp.list: true
 
 
   Build.member:
@@ -114,6 +116,7 @@ permissions:
       Build.warp.list: true
       Build.ci: true
       Build.guest: true
+      Build.helpbook: true
 
   Build.guest:
     default: true

@@ -1,8 +1,6 @@
 # Fix known issues with build.
 # Write an API hook for Build to hook into other software (GameCore)
 # Check GameCores #TODO file for more details.
-# chat mute delay.. //Waiting until World management system is running properly.
-# GUI Feature: Have an option to run a command or feature when an item is clicked in the gui. (Rework this into vote.)
 # Add /nether,end, world tp command???
 # Add weather, day/night command.
 # Create user data files using YAML system.
@@ -11,8 +9,9 @@
 # PermissionsEx SoftDepend.
 # Implement Item permissions with help GUI.
 # fix map bug with adding a world. Overrites, even if it already exists.
-# Add help book Tool to build.
 # Edit command.
 # Help page API.
-# //Check CTEssentials for valuable help...
-
+# chat clickable functions.
+# Look up proper way to do inventory GUI...
+# check HCFCore for data file system.
+# /enviroment command, list worlds, change weather/time. etc.

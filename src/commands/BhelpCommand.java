@@ -123,33 +123,6 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
     }
 */
 
-    @SuppressWarnings("Duplicates")
-    public void path(Inventory inv, Player p)
-    {
-        for(String itemKey : instance.getBConfig().getBuildConfig().getConfigurationSection("Help").getKeys(false)) {
-            ItemStack A =  createItem(Material.valueOf(itemKey.replace("Help.","")),instance.getBConfig().getBuildConfig().getString("Help." +itemKey + ".name"), itemKey, p);
-            inv.setItem(2,A);
-        }
-    }
-
-    void test1(ItemStack is)
-    {
-        List<String> items = instance.getBConfig().getBuildConfig().getStringList("Items");
-
-        for(String i : items)
-        {
-            Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.",0);
-            ItemStack isx= new ItemStack(Material.getMaterial(instance.getBConfig().getBuildConfig().getString(i +".item")));
-            String path = i+".item" + ".slot";
-            Debug.log(Debug.pluginLog() + "ITEM: " + is.getType(),0);
-            ItemMeta im = is.getItemMeta();
-            im.setDisplayName(i);
-            is.setItemMeta(im);
-//            inventory.setItem(instance.getBConfig().getBuildConfig().getInt(path),is);
-            Debug.log(Debug.pluginLog()+"&c BAEHELP gui Debug statement.",0);
-        }
-    }
-
     //// TODO: 8/30/16 For each??  
     public void getItem(Inventory inv,Player value)
     {
@@ -231,20 +204,6 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
     }
 
 
-    //Change to boolean??
-    public void itemPermission(Player p, String item, String bookType) //Later convert to Enum...
-    {
-        String perm = instance.getBConfig().getBuildConfig().getString(item+".permission");
-        if(p.hasPermission(perm))
-        {
-            //Run give book method..
-        }else
-        {
-            p.closeInventory();
-            p.sendMessage(color("&7You're not &fallowed&7 to click that&f."));
-        }
-    }
-
     @EventHandler
     public void OCE(InventoryClickEvent event) {
 
@@ -255,8 +214,40 @@ public class BhelpCommand extends BuildUtils implements CommandExecutor, Listene
         {
             if(getBAEInv().getViewers().contains(p))
             {
-                Debug.log("Testing...",0);
                 event.setCancelled(true);
+//                Debug.log("Testing...",0);
+//                event.setCancelled(true);
+
+                /*
+                List<String> items = instance.getBConfig().getBuildConfig().getStringList("Items");
+
+                for(String s : items)
+                {
+                    ItemStack is = new ItemStack(Material.valueOf(s));
+                    boolean clickable = instance.getBConfig().getBuildConfig().getBoolean(s+".clickable");
+                    String perm = instance.getBConfig().getBuildConfig().getString(s+".permission");
+                    List<String> commands = instance.getConfig().getStringList(s+".functions");
+                    if(event.getCurrentItem() == is && clickable && event.isRightClick())
+                    {
+                        Debug.log(1,p,Debug.LOG+"Inventory check passed, moving towards permission.");
+                        //Cancel, check perms, run function or help method.
+                        //TODO.. DO we want a specific function or do we want to check the item meta??
+                        if(p.hasPermission(perm))
+                        {
+                            Debug.log(Debug.LOG + "&6Checking permission output: " + perm,1);
+                            runCommands(commands,p,"Commands run.");
+                            Debug.log(Debug.LOG + "&6Command path check: " + commands,1);
+
+                        }else
+                        {
+                            p.sendMessage(color("&7> You don't have &fpermission&7 to click that&f."));
+                        }
+                    }else
+                    {
+                        event.setCancelled(true);
+                    }
+                }
+                */
             }else
             {
                 event.setCancelled(false);

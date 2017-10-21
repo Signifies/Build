@@ -106,6 +106,34 @@ blocked-cmds:
   - /version
   - /about
 #
+# Help-book Settings.
+help-book:
+  item: "WRITTEN_BOOK"
+  name: "{player}'s &4Help Book."
+  amount: 1
+  lore:
+  - "---------------------"
+  - "&cUser Data: "
+  - "&b{player}"
+  - "&a{uuid}"
+  - "&f{time}"
+  - "{location}"
+  - "&f------------------"
+  - "&6General Commands:"
+  - "&fTAGS: {builder},{mod},{smod},{admin},{dev}"
+  - "&7/build helpbook {mod}+"
+  - "&7/build warps - &fLists warps. &f|| &7/warp <warp> {builder}+"
+  - "&7/build ? -&f Lists all build cmds.{admin}+"
+  - "&7/build mode &f- Change gamemode, see [usage] flag. {builder}+"
+  - "&7/tp <player> &f|| &7/tphere <player>&f teleportation! {mod}+"
+  - "&7/chat clear &f||&7 /chat clearself &f|| &7/chat clearuser <user> {mod}+"
+  - "&7/chat mute <world> &f|| &7/chat unmute <world> {mod}+"
+  - "&7/kick <player> &f-Kick user(s) {mod}+"
+  - "&7/list"
+  - "&7/whitelist <&f[on] [off] [list] [clear]&7> {admin}+"
+  - "&7/invsee <&f[type][player]&7>"
+
+#
 # Settings for inventory
 # Size: Size of the inventory. Increments of 9 only can be used.
 # Name: Inventory display name. color coded.
@@ -124,7 +152,9 @@ Items:
 BOOK:
   Name: "&bServerInformation"
   permission: ""
-  function: ""
+  function:
+  - "/no"
+  clickable: false
   slot: 0
   set:
     lore:
@@ -136,7 +166,9 @@ BOOK:
 DIAMOND:
   Name: "&bServer ranks."
   permission: ""
-  function: ""
+  function:
+  - "/no"
+  clickable: false
   slot: 2
   set:
     lore:
@@ -150,7 +182,9 @@ DIAMOND:
 ENCHANTED_BOOK:
   Name: "&e&lCommands"
   permission: ""
-  function: ""
+  function:
+  - "/no"
+  clickable: false
   slot: 4
   set:
     lore:
@@ -170,9 +204,11 @@ ENCHANTED_BOOK:
 WRITTEN_BOOK:
   Name: "&5Admin &fHelp &6Book"
   permission: "Build.book.admin"
-  function: "/book??0 "
+  function:
+  - "build ?"
+  clickable: false
   slot: 6
   set:
     lore:
-    - "&fClick &7to receive &fAdmin"
+    - "&f/build helpbook &7to receive &fAdmin"
     - "Help Book&7."

@@ -2,6 +2,7 @@ package commands;
 
 import me.ES96.com.Build;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.scheduler.BukkitScheduler;
 import utilities.BuildPermissions;
 import utilities.BuildUtils;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
+import static org.bukkit.Bukkit.broadcast;
 import static org.bukkit.Bukkit.getServer;
 
 /**
@@ -106,7 +108,22 @@ public class BMapCommand extends BuildUtils implements CommandExecutor {
                         p.sendMessage(color("&cYou don't have permission to remove maps."));
                     }
                     break;
-
+                case "info":
+                    if(BuildPermissions.BUILD_MAP_INFO.checkPermission(sender))
+                    {
+                        if(args.length > 1)
+                        {
+                            World world = Bukkit.getServer().getWorld(args[1]);
+                            if(world ==null)
+                            {
+                                sender.sendMessage(color("&7>&fSorry, the world, &a" + args[1] + "&f does not exist."));
+                            }else
+                            {
+                                instance.getWorldMangement().getWorldInfo(world.getName(),sender);
+                            }
+                        }
+                    }
+                    break;
 
             }
         }

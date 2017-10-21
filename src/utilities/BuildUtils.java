@@ -164,22 +164,77 @@ public class BuildUtils
         return  value ? name +ChatColor.GREEN+" [Enabled]"  : name + ChatColor.RED +" [Disabled]";
     }
 
+    public void runCommands(List<String> commands, Player p, String inform) {
+        p.sendMessage(color(inform));
+        for (String cmd : commands)
+        {
+            cmd = cmd.replace("%player%",p.getName());
+            Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), cmd);
+            log("&aExecuted the command(s) &7" + cmd);
+        }
+    }
+
     public ArrayList<String> commandList()
     {
         ArrayList<String> value = new ArrayList<String>();
 
         value.add("     &f----- &7Build commands &f-----");
         value.add("&a/build &7<section> [true || false]");
-        value.add("&a/build &7status");
-        value.add("&a/build &7perms");
-        value.add("&a/build &7about");
-        value.add("&a/build &7reload");
-        value.add("&a/build &7warps");
-        value.add("");
-        value.add("&a/build &7chat [true || false]");
-        value.add("&a/build &7<itemdrops> [true || false]");
-        value.add("&a/build &7<itempickup> [true || false]");
+        value.add("&a/build helpbook");
+
         return value;
+    }
+
+    int hash=0;
+    protected void setHash(int newHash)
+    {
+        hash = newHash;
+    }
+
+
+    public ItemStack helpBook(Build instance, Player player)
+    {
+        String[] tag = {color("&5Builder&r"),color("&9MOD&r"),color("&6SMOD&r"),color("&cADMIN&r"),color("&aDEV&r")};
+
+
+        String location =  color("&7X:&a"+player.getLocation().getBlockX() +" &7Y&a:" +player.getLocation().getBlockY() + " &7Z&a:" + player.getLocation().getBlockZ() +"&r" );
+
+        ItemStack is = new ItemStack(Material.valueOf(instance.getBConfig().getBuildConfig().getString("help-book.item")),instance.getBConfig().getBuildConfig().getInt("help-book.amount"));
+        Debug.log(Debug.LOG + "Logging Help book Hash code: "+is.hashCode(),0);
+        setHash(is.hashCode());
+        String name = instance.getBConfig().getBuildConfig().getString("help-book.name");
+        name = name.replace("{player}",player.getName());
+        name = name.replace("{display_name}",player.getDisplayName());
+        name = name.replace("{uuid}",player.getUniqueId().toString());
+        List<String> lore = instance.getBConfig().getBuildConfig().getStringList("help-book.lore");
+        ItemMeta im = is.getItemMeta();
+        im.setDisplayName(color(name));
+
+        for(int i=0; i < lore.size(); i++)
+        {
+            String page = lore.remove(0);
+            page = page.replace("{player}",player.getName());
+            page = page.replace("{uuid}",player.getUniqueId().toString());
+            page = page.replace("{time}",getStamp().toString());
+            page = page.replace("{location}", location);
+            page = page.replace("{world}",player.getWorld().getName());
+            page = page.replace("{builder}",tag[0]);
+            page = page.replace("{mod}",tag[1]);
+            page = page.replace("{smod}",tag[2]);
+            page = page.replace("{admin}",tag[3]);
+            page = page.replace("{dev}",tag[4]);
+            //Add prefix, balance etc from permissions ex and economy.
+            lore.add(color(page));
+        }
+        im.setLore(lore);
+        is.setItemMeta(im);
+        player.sendMessage(color("&7Received &fhelp &7book&f!"));
+        return is;
+    }
+
+    public int getBookHash()
+    {
+        return this.hash;
     }
     protected ArrayList<String> usage()
     {

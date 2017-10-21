@@ -26,9 +26,11 @@ public enum  BuildPermissions
     BUILD_COMMAND_STAFFCHAT("Build.staffchat"),
     BUILD_COMMAND_HEAL("Build.heal"),
     BUILD_COMMAND_HELP("Build.help"),
+    BUILD_HELP_BOOK("Build.helpbook"),
     BUILD_INVSEE("Build.invsee"),
     BUILD_INVSEE_OTHERS("Build.invsee.others"),
     BUILD_TOGGLE("Build.toggle.buildmode"),
+    BUILD_MAP_INFO("Build.map.info"),
 
 
 

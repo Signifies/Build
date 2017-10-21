@@ -36,23 +36,20 @@ public class Invsee extends BuildUtils implements CommandExecutor, Listener
         instance = value;
     }
 
-    public HashMap<UUID, Integer> TID;
-    public Invsee() {
-        this.TID = new HashMap<UUID, Integer>();
-    }
-    
-    public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+    private HashMap<UUID, Integer> TID= new HashMap<>();
+
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can use this command.");
             return false;
         }
-        final Player p = (Player)sender;
+        Player p = (Player)sender;
         if (!BuildPermissions.BUILD_INVSEE.checkPermission(p)) {
             p.sendMessage(color(instance.getBConfig().getBuildConfig().getString("no-permission")));
             return false;
         }
         if (args.length != 1) {
-            p.sendMessage(color("&aUsage: &7/invsee <player>"));
+            p.sendMessage(color("&7/invsee <player>"));
             return false;
         }
         if (Bukkit.getPlayer(args[0]) == null) {
@@ -63,23 +60,23 @@ public class Invsee extends BuildUtils implements CommandExecutor, Listener
         return false;
     }
     
-    public void startInvsee(final Player p, final Player target) {
-        final Inventory inv = Bukkit.createInventory(p, 45, color("&a" + target.getName()));
-        final int id = Bukkit.getScheduler().scheduleSyncRepeatingTask(instance,new Runnable() {
+    public void startInvsee(Player p, Player target) {
+        Inventory inv = Bukkit.createInventory(p, 45, color("&a" + target.getName()));
+        int id = Bukkit.getScheduler().scheduleSyncRepeatingTask(instance,new Runnable() {
             @Override
             public void run() {
-                if (target != null) {
+//                if (target != null) { //fix logic here.
                     inv.setContents(target.getInventory().getContents());
                     inv.setItem(36, target.getInventory().getHelmet());
                     inv.setItem(37, target.getInventory().getChestplate());
                     inv.setItem(38, target.getInventory().getLeggings());
                     inv.setItem(39, target.getInventory().getBoots());
-                    inv.setItem(43, ItemUtill.createItem(Material.COOKED_BEEF, target.getFoodLevel(), color("§6Hunger"), color("&c&l") + target.getFoodLevel()));
-                    final ItemStack powder = ItemUtill.createItem(Material.GLASS_BOTTLE, color("&bPotion Effects"));
-                    final ItemMeta im = powder.getItemMeta();
-                    final ArrayList<String> lore = new ArrayList<String>();
+                    inv.setItem(43, ItemUtill.createItem(Material.COOKED_BEEF, target.getFoodLevel(), color("&6Hunger"), color("&c&l") + target.getFoodLevel()));
+                    ItemStack powder = ItemUtill.createItem(Material.GLASS_BOTTLE, color("&bPotion Effects"));
+                    ItemMeta im = powder.getItemMeta();
+                    ArrayList<String> lore = new ArrayList<>();
                     if (p.getActivePotionEffects().size() > 0) {
-                        for (final PotionEffect pe : p.getActivePotionEffects()) {
+                        for (PotionEffect pe : p.getActivePotionEffects()) {
                             lore.add(color("&c") + ItemUtill.getPotionName(pe.getType()) + " " + ItemUtill.getPotionAmplifier(pe) + color("&c: &l ") + Invsee.convertSecondsToMinutes(ItemUtill.getPotionDuration(pe)));
                         }
                     }
@@ -89,34 +86,33 @@ public class Invsee extends BuildUtils implements CommandExecutor, Listener
                     im.setLore(lore);
                     powder.setItemMeta(im);
                     inv.setItem(44, powder);
-                }
+//                }
             }
         }, 0L, 3L);
         p.openInventory(inv);
         this.TID.put(p.getUniqueId(), id);
     }
     
-    public void stopScheduler(final Player p) {
+    public void stopScheduler(Player p) {
         if (this.TID.containsKey(p.getUniqueId())) {
-            final int id = this.TID.get(p.getUniqueId());
+            int id = this.TID.get(p.getUniqueId());
             Bukkit.getScheduler().cancelTask(id);
             this.TID.remove(p.getUniqueId());
         }
     }
     
     @EventHandler
-    public void onClose(final InventoryCloseEvent e) {
+    public void onClose(InventoryCloseEvent e) {
         if (this.TID.containsKey(e.getPlayer().getUniqueId())) {
             this.stopScheduler((Player)e.getPlayer());
         }
     }
     
-    public static String convertSecondsToMinutes(final int time) {
-        final int minutes = time / 60;
-        final int seconds = time % 60;
-        final String disMinu = new StringBuilder().append(minutes).toString();
-        final String disSec = String.valueOf((seconds < 10) ? "0" : "") + seconds;
-        final String formattedTime = String.valueOf(disMinu) + ":" + disSec;
-        return formattedTime;
+    public static String convertSecondsToMinutes(int time) {
+        int minutes = time / 60;
+        int seconds = time % 60;
+        String disMinu = new StringBuilder().append(minutes).toString();
+        String disSec = String.valueOf((seconds < 10) ? "0" : "") + seconds;
+        return String.valueOf(disMinu) + ":" + disSec;
     }
 }
