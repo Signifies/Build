@@ -6,13 +6,13 @@
 # //TODO for maps, create map list function.
 # Edit command.
 
-
 # check HCFCore for data file system.
 # Econ system.. vault?
 # Update to use Java 7/8 methods. SEE CTE for reference.
 # Fix item command
 # Add item tohelpbook.
-
+# Staff manager
+# PlayerState //See CTE playerstate idea.
 
 
 # chat clickable functions.

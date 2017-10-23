@@ -25,6 +25,7 @@ public class Build extends JavaPlugin
 
     private Warps warp = new Warps(this);
     private BuildConfig conf = new BuildConfig(this);
+    private UUIDConfig uuidConfig = new UUIDConfig(this);
     private WorldConfig wconf = new WorldConfig(this);
     public PluginDescriptionFile pdfFile = this.getDescription();
     private ArrayList<UUID> toggle = new ArrayList<>();
@@ -47,7 +48,8 @@ public class Build extends JavaPlugin
         mode = new BuildMode(this);
 
         configuration();
-        loadWarps(); //TODO
+        loadUUIDs();
+        loadWarps();
         loadEvents();
         loadWorlds();
         commands();
@@ -72,7 +74,13 @@ public class Build extends JavaPlugin
         Debug.log(Debug.pluginLog() +"&6Loading configuration...",1);
         conf.saveDefaultBuildConfig();
         conf.saveBuildConfig();
+    }
 
+    void loadUUIDs()
+    {
+        Debug.log(Debug.pluginLog()+"&b&nLoading UUID's...",1);
+        uuidConfig.saveDefaultUUIDConfig();
+        uuidConfig.saveUUIDConfig();
     }
 
     void loadEvents()
