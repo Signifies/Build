@@ -20,6 +20,9 @@ public class Build extends JavaPlugin
 {
 
     public static boolean DEBUG = true;
+
+    private static ImplementedAPI implementedAPI;
+
     private Warps warp = new Warps(this);
     private BuildConfig conf = new BuildConfig(this);
     private WorldConfig wconf = new WorldConfig(this);
@@ -36,8 +39,10 @@ public class Build extends JavaPlugin
     public Menu menu;
     BuildMode mode;
     private SQL sql;
+
     public void onEnable()
     {
+
         conf = new BuildConfig(this);
         mode = new BuildMode(this);
 
@@ -46,8 +51,20 @@ public class Build extends JavaPlugin
         loadEvents();
         loadWorlds();
         commands();
+//        checkDependencies();
+
+        try {
+            implementedAPI = ImplementedAPI.boot(this);
+        }catch (Exception e)
+        {
+            Debug.log(Debug.FAILED_ACTION+"Exception message: "+e.getMessage() ,1);
+            Debug.log(Debug.LOG+"Exception:  "+e.getStackTrace().toString(),1);
+        }
+
         menu = new Menu(this);
 //        sql = new SQL(getConfig().getString("Database.host"), getConfig().getString("Database.username"), getConfig().getString("Database.password"), getConfig().getString("Database.database"));
+//        getBConfig().getBuildConfig().getString("Database.host"), getBConfig().getBuildConfig().getString("Database.username"), getBConfig().getBuildConfig().getString("Database.password"), getBConfig().getBuildConfig().getString("Database.database");
+
     }
 
     void configuration()
@@ -107,6 +124,7 @@ public class Build extends JavaPlugin
         registerCmd("invsee",new Invsee(this));
         registerCmd("map",new BMapCommand(this));
         registerCmd("list", new ListCommand(this));
+        registerCmd("environment", new BEnvironment(this));
     }
 
 
@@ -164,4 +182,61 @@ public class Build extends JavaPlugin
     {
         return worldMangement;
     }
+    public boolean isSQLEnabled()
+    {
+        return getBConfig().getBuildConfig().getBoolean("Database.enabled");
+    }
+
+    public void onDisable()
+    {
+        if(implementedAPI !=null)
+        {
+           try {
+               Debug.log(Debug.LOG+"&4Shutting down API....",1);
+               implementedAPI.trash();
+           }catch (IllegalAccessException e)
+           {
+               Debug.log(Debug.SEVERE+"API was already trashed.",1);
+           }catch (Exception e)
+           {
+               Debug.log(Debug.SEVERE + "Error while trashing API.",1);
+           }
+        }
+    }
+
+    public boolean pexLoaded()
+    {
+        return Bukkit.getServer().getPluginManager().getPlugin("PermissionsEx").isEnabled();
+    }
+
+    public boolean vaultLoaded()
+    {
+        return Bukkit.getServer().getPluginManager().getPlugin("Vault").isEnabled();
+    }
+
+    boolean usingVault()
+    {
+        return getBConfig().getBuildConfig().getBoolean("dependencies.vault");
+    }
+
+    boolean usingPEX()
+    {
+        return getBConfig().getBuildConfig().getBoolean("dependencies.PermissionsEx");
+    }
+    private void checkDependencies()
+    {
+        if(!pexLoaded() && !usingPEX())
+        {
+            //Add an instance thingy here maybe? or just a message
+            Debug.log(Debug.FAILED_ACTION + "&4PermissionsEx failed to load or is disabled in build config!",1);
+            return;
+        }
+
+        if(!vaultLoaded() && !usingVault())
+        {
+            Debug.log(Debug.FAILED_ACTION + "&4Vault failed to load or is disabled in build config!",1);
+            return;
+        }
+    }
+
 }

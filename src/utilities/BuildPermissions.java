@@ -20,6 +20,12 @@ public enum  BuildPermissions
     BUILD_COMMAND_KICK("Build.command.kick"),
     BUILD_COMMAND_SETSPAWN("Build.setspawn"),
     BUILD_COMMAND_SPAWN("Build.spawn"),
+    BUILD_ENVIRONMENT_COMMAND("Build.command.environment"),
+    BUILD_ENVIRONMENT_WEATHER("Build.command.environment.weather"),
+    BUILD_ENVIRONMENT_TIME("Build.command.environment.time"),
+    BUILD_ENVIRONMENT_INFO("Build.command.environment.info"),
+    BUILD_ENVIRONMENT_WORLDS("Build.command.environment.worlds"),
+    BUILD_ENVIRONMENT_TP("Build.command.environment.tp"),
     BUILD_COMMAND_DELSPAWN("Build.delspawn"),
     BUILD_COMMAND_WHITELIST("Build.whitelist"),
     BUILD_COMMAND_WHITELIST_NOTIFY("Build.whitelist.notify"),
@@ -31,7 +37,7 @@ public enum  BuildPermissions
     BUILD_INVSEE_OTHERS("Build.invsee.others"),
     BUILD_TOGGLE("Build.toggle.buildmode"),
     BUILD_MAP_INFO("Build.map.info"),
-
+    BUILD("Build."),
 
 
     BUILD_TOGGLE_NORMAL("Build.toggle"),
@@ -94,7 +100,7 @@ public enum  BuildPermissions
 
     private String key;
 
-    BuildPermissions(String key) {
+     BuildPermissions(String key) {
         this.key = key;
     }
 

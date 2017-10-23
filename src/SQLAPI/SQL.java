@@ -54,21 +54,26 @@ public class SQL extends BuildUtils {
 
      public Connection connection;
 
-    public SQL(String ip, String userName, String access, String db) {
+    public SQL(boolean enabled,String ip, String userName, String access, String db) {
 
-        this.host = ip;
-        this.user = userName;
-        this.pass = access;
-        this.database = db;
+        if(enabled)
+        {
 
+            this.host = ip;
+            this.user = userName;
+            this.pass = access;
+            this.database = db;
 
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://" + ip + "/" + db + "?user=" + userName + "&password=" + access);
-            Debug.log("&4Connection successful.",1);
-        } catch (Exception e) {
-            exceptionDebug(e);
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                connection = DriverManager.getConnection("jdbc:mysql://" + ip + "/" + db + "?user=" + userName + "&password=" + access);
+                Debug.log("&4Connection successful.",1);
+            } catch (Exception e) {
+                exceptionDebug(e);
+            }
+        }else
+        {
+            Debug.log(Debug.LOG+"&4Database has been disabled in config.yml!",1);
         }
     }
 

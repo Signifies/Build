@@ -22,6 +22,39 @@ public class BitemCommand extends BuildUtils implements CommandExecutor
         instance = main;
     }
 
+    ItemStack item = getItemStack("SAPLING:5",1);
+
+    public ItemStack getItemStack(String value,int amt) {
+
+        Material mat = null;
+        int data = 0;
+
+        String[] obj = value.split(":");
+
+        if (obj.length == 2) {
+            try {
+                mat = Material.matchMaterial(obj[0]);
+            } catch (Exception e) {
+                return null; // material name doesn't exist
+            }
+
+            try {
+                data = Integer.valueOf(obj[1]);
+            } catch (NumberFormatException e) {
+                return null; // data not a number
+            }
+        } else {
+            try {
+                mat = Material.matchMaterial(value);
+            } catch (Exception e) {
+                return null; // material name doesn't exist
+            }
+        }
+
+        ItemStack item = new ItemStack(mat, amt);
+        item.setDurability((short) data);
+        return item;
+    }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String args[])
     {
@@ -39,15 +72,11 @@ public class BitemCommand extends BuildUtils implements CommandExecutor
         {
             if(args.length < 1)
             {
-                p.sendMessage(color("&cNot enough arguments were passed."));
-            }else
+                p.sendMessage(color("&7/item [id] <amount> &f|| &7/item [player] [id] <amount> &f|| &7/item [id] [amount] <display_name> <lore> <enchantment>"));
+            }else if(args.length >0)
             {
-                String[] frmt = args[0].split(":");
-                Material mat = Material.getMaterial(Integer.parseInt(frmt[0]));
-                int amt = (args.length == 2) ? Integer.parseInt(args[1]) : mat.getMaxStackSize();
-                ItemStack is = (frmt.length == 1) ? new ItemStack(mat,amt) : new ItemStack(mat);
-                p.sendMessage(color("&7Adding &6" +amt + "&7 of &c" + args[0]));
-                p.getInventory().addItem(is);
+               ItemStack is = getItemStack(args[0],Integer.parseInt(args[1]));
+               p.getPlayer().getInventory().addItem(is);
             }
         }else
         {

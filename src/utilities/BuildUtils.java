@@ -4,6 +4,7 @@ import me.ES96.com.Build;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -300,6 +301,15 @@ public class BuildUtils
         }
     }
 
+    //TODO
+    public void topLocation(Player p)
+    {
+        Location location = p.getLocation();
+//        if(p.getWorld().getHighestBlockAt(location) <= ((double)location.getY()))
+        {
+
+        }
+    }
 
 
     public void allCommands(CommandSender sender)

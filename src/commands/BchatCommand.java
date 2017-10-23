@@ -180,6 +180,8 @@ public class BchatCommand extends BuildUtils implements CommandExecutor
                                     sender.sendMessage(color("&7> You have &fun-muted&7 the &fchat &7for the world &f " + world.getName() +"&7."));
                                 }
                                 //get the world
+
+
                                 //mute chat here.
                             }else
                             {

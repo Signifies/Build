@@ -75,6 +75,7 @@ public class WorldMangement extends BuildUtils
            instance.getWConfig().saveWorldConfig();
            log(Debug.pluginLog() + "&a&lThe world, &n" + player.getWorld().getName() + "&a&l has been added.");
            player.sendMessage(color( "&a&lThe world, &n" + player.getWorld().getName() + "&a&l has been added."));
+           player.sendMessage(color("&7> Map added &fsuccessfully&7!"));
 //        instance.getWConfig().getWorldConfig().set("World-Management." + player.getWorld().getName() + "",);
 
        }

@@ -104,7 +104,7 @@ public class BuildCommand extends BuildUtils implements CommandExecutor
 
 
                         default:
-                            sender.sendMessage(color("&7You've used incorrect arguments with this command, use &a/set&7."));
+                            sender.sendMessage(color("&7You've used incorrect arguments with this command, use &a/build&7."));
                     }
                 }
             }

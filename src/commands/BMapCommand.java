@@ -71,7 +71,6 @@ public class BMapCommand extends BuildUtils implements CommandExecutor {
                     if (BuildPermissions.BUILD_MAP_ADD.checkPermission(p)) {
                         //TODO implement add method inside WorldManagement.
                         instance.getWorldMangement().writeWorld(p);
-                        p.sendMessage(color("&7> Map added &fsuccessfully&7!"));
 
                     } else {
                         p.sendMessage(color("&cYou don't have permission to add maps!"));

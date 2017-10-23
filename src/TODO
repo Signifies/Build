@@ -1,17 +1,19 @@
 # Fix known issues with build.
-# Write an API hook for Build to hook into other software (GameCore)
+
 # Check GameCores #TODO file for more details.
-# Add /nether,end, world tp command???
-# Add weather, day/night command.
 # Create user data files using YAML system.
 # Prepare to use a Map/Player SQL data system...
 # //TODO for maps, create map list function.
-# PermissionsEx SoftDepend.
-# Implement Item permissions with help GUI.
-# fix map bug with adding a world. Overrites, even if it already exists.
 # Edit command.
-# Help page API.
+
+
+# check HCFCore for data file system.
+# Econ system.. vault?
+# Update to use Java 7/8 methods. SEE CTE for reference.
+# Fix item command
+# Add item tohelpbook.
+
+
+
 # chat clickable functions.
 # Look up proper way to do inventory GUI...
-# check HCFCore for data file system.
-# /enviroment command, list worlds, change weather/time. etc.

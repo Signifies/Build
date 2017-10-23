@@ -1,6 +1,7 @@
 name: Build
 main: me.ES96.com.Build
-version: 1.0.1
+version: 2.0.1
+softdepend: [PermissionsEx, Vault]
 description: Plugin that manages all build administrative features.
 website: https://github.com/ES359
 author: ES96
@@ -65,6 +66,9 @@ commands:
     description: Command to view maps...
   data:
     description: Command to view data.
+  environment:
+    description: Command to control the environment.
+    aliases: [env]
 permissions:
 
   Build.*:
@@ -103,6 +107,7 @@ permissions:
       Build.chat.clearothers: true
       Build.helpbook: true
       Build.warp.list: true
+      Build.command.environment.*: true
 
 
   Build.member:
@@ -144,6 +149,15 @@ permissions:
       Build.mode.adventure: true
       Build.mode.spectator: true
       Build.users: true
+
+  Build.command.environment.*:
+    description:
+    children:
+      Build.command.environment: true
+      Build.command.environment.weather: true
+      Build.command.environment.time: true
+      Build.command.environment.info: true
+      Build.command.environment.worlds: true
 
   Build.gamemodes.*:
     description:
