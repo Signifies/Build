@@ -1,5 +1,8 @@
 package events;
 
+import me.ES96.com.PlayerAttributes;
+import me.ES96.com.PlayerState;
+import me.ES96.com.State;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -328,7 +331,7 @@ public class BuildEvents extends BuildUtils implements Listener
         if(event.getEntity() instanceof TNTPrimed)
         {
 
-            if(main.getWConfig().getWorldConfig().getBoolean("Explosion.Enabled"))
+            if(main.getWConfig().getWorldConfig().getBoolean("World-Management." +event.getEntity().getWorld().getName() + ".explosion"))
             {
                 event.setCancelled(false);
             }else
@@ -363,7 +366,9 @@ public class BuildEvents extends BuildUtils implements Listener
     public void join(PlayerJoinEvent event)
     {
         Player p = event.getPlayer();
-
+       //TODO STATE
+        PlayerState state = new PlayerState();
+        state.setPlayerState(p,State.DEFAULT);
         event.setJoinMessage(null);
         String format = main.getBConfig().getBuildConfig().getString("Messages.join");
         format = format.replace("{player}", p.getName());
@@ -373,13 +378,7 @@ public class BuildEvents extends BuildUtils implements Listener
         List<String> motd = main.getBConfig().getBuildConfig().getStringList("Build.MOTD.motd");
         sendText(motd,p);
 
-        data = new Data(new File("plugins/Build/PlayerData/" + p.getUniqueId() + ".json"),p);
-        Debug.log(Debug.pluginLog() + "&6Creating file for " + p.getName(),1);
-        log(color("%prefix% &7Creating data for player, &6" + p.getName()));
-
-
-//        if(Debug.checkAuth(p.getUniqueId()))
-//            p.getInventory().addItem(createHelpBook());
+//        data = new Data(new File("plugins/Build/PlayerData/" + p.getUniqueId() + ".json"),p);
 
     }
 
@@ -393,14 +392,15 @@ public class BuildEvents extends BuildUtils implements Listener
         format = format.replace("{display_name}",p.getDisplayName());
         format = format.replace("{uuid}",p.getUniqueId().toString());
         Bukkit.getServer().broadcastMessage(color(format));
-
-//        data.update(p);
-        Debug.log(Debug.pluginLog() + "&6Updating player data for " + p.getName(),1);
-        log(color("%prefix% &4&lUpdating player data for &6&l" + p.getName()));
-
-
     }
 
+
+    @EventHandler
+    public void preLogin(AsyncPlayerPreLoginEvent event)
+    {
+        main.getUserManager().set(event.getUniqueId().toString(), event.getName());
+        main.getUserManager().getStoredUUIDs().forcePut(event.getUniqueId(),event.getName());
+    }
 
 
     @EventHandler

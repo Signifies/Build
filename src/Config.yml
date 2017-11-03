@@ -63,7 +63,7 @@ Messages:
 
 # # # # # # # # # # # #
 Whitelist:
-  kick-message: "&9Whitelist&8> &c&oConnection failed: &8&l--&a&l>\n&6&lUUID: &7(&a%uuid%&7)\n&6&lUsername: &c&n%playername%"
+  kick-message: "&7Whitelist&f> &f&oConnection &cfailed: &8&l--&a&l>\n&6&lUUID: &7(&a%uuid%&7)\n&6&lUsername: &c&n%playername%"
   whitelist-alert: "%prefix% &7The player, &a%playername% is attempting to join the server."
 #
 #

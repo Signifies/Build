@@ -34,7 +34,8 @@ public class Build extends JavaPlugin
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<UUID> spy = new ArrayList<>();
     public static ArrayList<String> staff = new ArrayList<>();
-    public WorldMangement worldMangement = new WorldMangement(this);
+    private WorldMangement worldMangement = new WorldMangement(this);
+    private UserManager userManager = new UserManager(this);
 
 
     public Menu menu;
@@ -194,6 +195,17 @@ public class Build extends JavaPlugin
     {
         return getBConfig().getBuildConfig().getBoolean("Database.enabled");
     }
+
+    public UUIDConfig getUuidConfig()
+    {
+        return uuidConfig;
+    }
+
+    public UserManager getUserManager()
+    {
+        return userManager;
+    }
+
 
     public void onDisable()
     {

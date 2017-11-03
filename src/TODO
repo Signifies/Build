@@ -12,8 +12,14 @@
 # Fix item command
 # Add item tohelpbook.
 # Staff manager
-# PlayerState //See CTE playerstate idea.
+# PlayerState //See CTE playerstate idea. //Also use enum state to check for different states, mod, builder and default etc. //Started
 
-
+# Visibility and vanish policy.
 # chat clickable functions.
 # Look up proper way to do inventory GUI...
+
+//    private PlayerState defaultState = null;
+    //We'll come back to this. For now we need a simple system
+    //That can differentiate a player's state.
+    //Hashmap to store player state.
+

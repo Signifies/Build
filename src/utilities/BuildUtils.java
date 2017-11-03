@@ -22,7 +22,7 @@ public class BuildUtils
     /**
      * Plugin prefix.
      */
-    public static String prefix = ChatColor.translateAlternateColorCodes('&',"&2Build &7->");
+    public static String prefix = ChatColor.translateAlternateColorCodes('&',"&3Build &7-> &r");
 
     @Deprecated
     protected String permission = color(getPrefix() + "&eSorry, but you are not able to use this command.");
@@ -400,7 +400,7 @@ public class BuildUtils
      */
     public void log(String msg)
     {
-        Bukkit.getServer().getConsoleSender().sendMessage(color("&c&l[LOG]&f " + msg));
+        Bukkit.getServer().getConsoleSender().sendMessage(color("&c&l[LOG]&f "+prefix +""+ msg));
     }
 
     public void clearPlayer(Player p)
