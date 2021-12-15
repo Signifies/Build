@@ -35,36 +35,6 @@ public class Debug
         return ChatColor.translateAlternateColorCodes('&',s);
     }
 
-    //Use prority in the form of a switch statement to be returned as boolean.
-//We can then check those said values with our DEBUG variable.
-//Variable priority ranges from 1-3 1 being the highest, 2 being moderate
-//3 being the lowest.
-
-
-    static private boolean priority(int priority_0_1)
-    {
-        priorityLevel = priority_0_1;
-
-        if(!DEBUG)
-        {
-            switch(priorityLevel)
-            {
-                case 0:
-                    return false;
-                case 1:
-                    return true;
-
-                case 2:
-                       return false;
-
-                default:
-                    return false;
-            }
-        }else
-        {
-            return true;
-        }
-    }
 
     static public void log(String msg, int level)
     {
@@ -82,12 +52,10 @@ public class Debug
         }
     }
 
-    static public void log(int level, CommandSender p, String msg)
-    {
-        if(priority(level))
-        {
-            p.sendMessage(color(msg));
-        }
+    static public void log(String msg, int priority) {
+       if(DEBUG || priority > 0) {
+          System.out.println(LOG +"Priority: "+priority+" "+ msg);
+       }
     }
 
 
